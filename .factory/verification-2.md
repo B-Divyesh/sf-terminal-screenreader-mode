@@ -1,115 +1,127 @@
-# Independent product verification 2
+# Independent verification 2 — FAIL
 
-## Verdict: FAIL
+**Candidate:** `e8f7959f121b704806202bf57e66ffd1c3273828`
+**Verified:** 28 August 2026 UTC
+**Live URL:** https://terminal-screenreader-mode.sociobot.in
 
-- Candidate: `e8f7959f121b704806202bf57e66ffd1c3273828`
-- Live URL: <https://terminal-screenreader-mode.sociobot.in>
-- Verified: 28 August 2026 UTC
-- Work order: `terminal-screenreader-mode-verify-2`
+## Verdict
 
-The repaired candidate passes the automated, packaging, live-site, claim, and
-first-screen checks below. It is still not releasable under the researched
-brief because there is no evidence of the required NVDA, JAWS, and VoiceOver
-compatibility testing. The site itself says those pilots are the next release
-gate. Automated browser accessibility checks cannot substitute for the stated
-assistive-technology validation.
+**FAIL — do not release.** The live static documentation deployment now matches
+the candidate, but the CLI can reorder stdout and stderr records. A stable
+linear transcript that reports events in the wrong order is unsafe for the
+brief's screen-reader workflow.
 
-## Release-blocking finding
+## First-read result — PASS
 
-### High — V2-01: required screen-reader compatibility testing is absent
+Cold-loading the live home page at 1440 × 900 produced:
 
-The brief requires testing with NVDA, JAWS, VoiceOver, and common shells for a
-tool whose core value is stable screen-reader output. No test record, pilot
-result, or compatibility matrix is shipped. `.factory/handoff.md` and the
-live landing page expressly describe those pilots as still pending. This
-blocks acceptance until the three screen readers are tested against the
-documented sample and representative wrapped commands, with results recorded.
+- **What it does:** “Read streaming commands without losing your place”; it turns changing terminal output into stable lines.
+- **For whom:** “For screen-reader users”.
+- **What to click first:** the visible **Try it with sample data** link, with the adjacent explanation “See a noisy build become six stable lines.”
 
-## First-read and demo gate — PASS
+The link reaches `/demo` in one activation. That page has the required “Demo —
+sample data, nothing is saved” banner, **Reset demo**, and **Start for real**.
 
-A cold live load answers all three mandatory questions in plain words:
+## Release-blocking findings
 
-- **What:** “Read streaming commands without losing your place.”
-- **For whom:** “For screen-reader users...”
-- **First click:** **Try it with sample data**, with the adjacent outcome “See
-  a noisy build become six stable lines.”
+### High — `tsrm run` does not preserve combined stdout/stderr event order
 
-At 1440×900 the summary ends at y=566 px, the action at y=634 px, and the
-three facts at y=689 px. At 390×844 they end at y=534, 643, and 775 px. The
-one-click `/demo` opens the bundled six-line recording and its persistent
-banner reads “Demo — sample data, nothing is saved,” with Reset demo and Start
-for real controls.
+The product's job is to make a command's changing output into a **linear**
+transcript. `run_command` starts a reader thread for each output pipe and emits
+records in the order those threads reach the channel (`src/main.rs`), not in the
+child process's write order. The scheduling race is observable.
 
-## Mandatory claims gate — PASS
+Fresh release-binary probe (30 runs):
 
-After clean `npm ci` (23 packages, zero audit vulnerabilities), every exact
-command declared in `.factory/claims.json` completed separately with status
-zero. The final marker is `ALL_CLAIMS_PASS` in
-`/tmp/tsrm-claim-gate-verify2.log`.
+```text
+child writes: stdout-1, stderr-1, stdout-2, stderr-2
 
-| Claim IDs (each run as `npm test -- --grep @claim:<id>`) | Result |
+20  stdout-1,stderr-1,stdout-2,stderr-2
+10  stderr-1,stdout-1,stdout-2,stderr-2
+```
+
+The child writes `stdout-1` first, yet one third of transcripts announced
+`stderr-1` first. This can make errors, progress, and results misleading to a
+screen-reader user. There is no claim test that exercises cross-stream ordering.
+
+**Required repair:** capture the child output as a single ordered stream (or
+state and implement a documented deterministic merge policy) and add a tagged
+demo-entry claim test for alternating stdout/stderr writes.
+
+### High — required assistive-technology compatibility testing is absent
+
+The acceptance contract requires testing with NVDA, JAWS, VoiceOver, and common
+shells. There is no pilot record or test evidence for any of them. The live page
+states that compatibility pilots are the “next release gate,” confirming this
+requirement remains open. Automated semantic and keyboard checks do not replace
+real assistive-technology validation.
+
+### Medium — live mobile Lighthouse performance is not consistently at 90
+
+Three independent Lighthouse 13.4.1 mobile-default runs against the deployed
+home page measured performance **84, 92, and 84** (mean 86.7), while
+Accessibility/Best Practices/SEO were 100 each time. The two 84 runs measured
+620 ms total blocking time; FCP was 0.8–1.0 s, LCP 1.1–1.2 s, and CLS 0.
+The factory performance gate is ≥90, so this needs a reproducible performance
+investigation before release despite the small static bundle.
+
+## Required claims gate — PASS
+
+`.factory/claims.json` exists with 15 entries. From the clean candidate after
+`npm ci`, I ran every declared command exactly as written:
+
+| Claim ID | Result |
 | --- | --- |
-| stable-rewrites, local-default, ansi-links, json-lines, exit-code | PASS |
-| unicode-safe, semantic-labels, output-file, earcons-off, timestamped | PASS |
-| demo-sandbox, mit-free, offline-docs, keyboard-recording, rust-version | PASS |
+| `stable-rewrites` | PASS |
+| `local-default` | PASS |
+| `ansi-links` | PASS |
+| `json-lines` | PASS |
+| `exit-code` | PASS |
+| `unicode-safe` | PASS |
+| `semantic-labels` | PASS |
+| `output-file` | PASS |
+| `earcons-off` | PASS |
+| `timestamped` | PASS |
+| `demo-sandbox` | PASS |
+| `mit-free` | PASS |
+| `offline-docs` | PASS |
+| `keyboard-recording` | PASS |
+| `rust-version` | PASS |
 
-The tests use the release binary and bundled fixture for CLI claims. The
-privacy claim uses an isolated HOME/TMPDIR/work directory and an `LD_PRELOAD`
-socket/connect/sendto monitor. The offline claim checks service-worker cache
-contents and reloads the demo offline.
+Each command runs `cargo test`, the release production build, and its tagged
+Playwright assertion. The final test artifact reported `{"status":"passed",
+"failedTests":[]}`. This gate does not cover the high-severity cross-stream
+ordering defect above.
 
-## Local build, package, and CLI — PASS
+## Local build, package, and CLI exercise
 
-- `npm test`: Rust unit/integration suite plus the Playwright suite completed
-  successfully (54 browser tests across Chromium and 390 px mobile projects;
-  project-specific skips are expected).
-- `npm run build`: PASS; `dist/site` and `target/release/tsrm` produced.
-  Entry JavaScript is 12.82 kB (4.67 kB gzip); CSS is 10.29 kB (3.00 kB gzip).
-- `cargo fmt --all -- --check`, `cargo clippy --all-targets --all-features --
-  -D warnings`, a direct TypeScript no-emit check, and `npm audit
-  --audit-level=high`: PASS.
-- `npm run package`: PASS. The crate has 11 intended files and is 13.7 kB
-  compressed.
-- Clean-consumer installation from
-  `target/package/terminal-screenreader-mode-0.1.0`: PASS. Installed `tsrm`
-  reported 0.1.0, ran its demo, and normalized a JSON heading record.
+- `npm ci`: passed; 23 packages audited, 0 vulnerabilities.
+- `npm test`: passed: 8 Rust unit tests, 4 Rust CLI integration tests, and 54 Playwright tests (desktop and 390 px projects).
+- `npm run build`: passed. `dist/site` entry JS is 12.82 kB / 4.67 kB gzip; CSS is 10.29 kB / 3.00 kB gzip; responsive hero is 41.7 kB. All are within the stated static asset budgets.
+- `cargo fmt --check` and `cargo clippy --all-targets -- -D warnings`: passed. No repository lint/type-check script is defined beyond these and the Vite build.
+- `npm run package`: passed. Cargo verified the 11-file, 13.7 kB compressed `terminal-screenreader-mode-0.1.0.crate` archive.
+- Clean consumer: installed the packed crate into a new temporary Cargo root. `tsrm --help`, `tsrm demo --no-timestamps` (six records), JSON normalization, ANSI/link/heading/error output, a 20,000-line Unicode boundary stream, and a wrapped exit 7 all worked. Empty input returned 0 with no output. Missing commands, incompatible `--earcons --json`, and an unwritable `--output` returned exit 2 with actionable errors. The stdout/stderr ordering probe failed as described above.
 
-Independent CLI exercises passed: ANSI/carriage-return normalization, heading,
-error and link labels, Unicode and malformed UTF-8 recovery, JSON Lines,
-opt-in earcons, wrapped exit status 7, 1 MiB input, no-output status, and
-clear exit-2 recovery messages for an unwritable output parent and conflicting
-`--earcons --json`. A wrapped command that writes a line, sleeps one second,
-then writes another released the first record in 107 ms.
+## Live site and deployment verification
 
-## Live deployment, privacy, accessibility, and PWA — PASS
+- The generated candidate `index.html` SHA-256 is `aee1bcd4621b249aa6fdb61ff8cb1902db0f480b8b345e2103a9db97d0290d7e`; the live home document has the identical hash.
+- Candidate and live hashes also match for the hashed JS/CSS, service worker, favicon, hero/OG art, `robots.txt`, and `sitemap.xml`. The deployment is not stale.
+- `/`, `/demo`, `/privacy`, and `/terms` returned 200; an unknown route returned real HTTP 404 with the designed 404 page. All live first-party and external links discovered on the landing page returned 200 (or are `mailto:` links).
+- The live root and core routes have exactly one `h1`, one `main`, `lang=en`, correct route titles, no page errors, and no axe serious/critical violations. The expected browser console report for the deliberately requested unknown 404 URL is the HTTP 404 itself; normal product routes have no console errors.
+- Keyboard check: the skip link received focus and moved focus to `main`; the demo link activated with Enter and moved focus to the new `h1`; the visible focus ring is a 3 px `#6fffb0` outline with a 3 px offset. Recording controls and reset work with keyboard activation.
+- At 390 × 844 CSS px the document width was exactly 390 px and no visible focusable target was under 44 px. With reduced motion, Play immediately made all six lines visible and CSS reduced animation duration to 0.01 ms.
+- Service worker `tsrm-site-v2` precached routes and versioned assets; after activation, `/demo` reloaded offline with no errors. The worker uses `skipWaiting`, `clients.claim`, and deletes prior cache names on activation; its update code was inspected, though no newer production worker was available to install during this verification.
 
-- Deployment identity: local `dist/site` and live content hashes match for
-  index, demo/privacy/terms, 404, worker, JS, CSS, images, favicon, robots,
-  and sitemap. `staticwebapp.config.json` is deployment configuration and is
-  not exposed as a public static asset; live behavior confirms its rules.
-- `/`, `/demo`, `/privacy`, and `/terms` return 200; an unknown path returns
-  a real 404. Hashed JS and CSS return `Cache-Control: public,
-  max-age=31536000, immutable`; the worker returns `no-cache`.
-- A fresh service-worker context cached HTML routes, 404 assets, both hero
-  assets, favicon, and the exact hashed JS/CSS. `/demo` then reloaded offline
-  with its h1 and no console errors. The worker uses `skipWaiting` and deletes
-  prior named caches on activation.
-- Live desktop and 390 px checks found no horizontal overflow and no visible
-  interactive target under 44×44 px. Keyboard Tab reaches the skip link,
-  Enter moves focus to `main`, route changes focus the h1, and recording
-  controls work with Enter. The focus ring is visible. Reduced motion gives
-  0.00001-second animation/transition durations.
-- Axe 4.10.2 found zero serious or critical violations on live home and demo
-  at both viewports. Each checked page has `lang=en`, one h1, one main,
-  meaningful image alt, and no normal-flow console/page errors.
-- Fresh demo browsing observed only same-origin requests; local/session
-  storage and cookies were empty, and no form, third-party script, analytics,
-  sign-in, payment, or API call exists. HTTPS supplies HSTS, CSP,
-  `nosniff`, Referrer-Policy, and Permissions-Policy. This static product has
-  no server-side endpoint, so rate-limit and Entra checks are not applicable.
+## Privacy, network, and response policy
 
-## Required next step
+- The `local-default` claim isolated HOME, TMPDIR, and the working directory and used an `LD_PRELOAD` monitor for `socket`, `connect`, and `sendto`; it passed with no default writes or network calls.
+- A fresh live browser context made only same-origin requests for the site, local assets, and service worker. It created no cookies, localStorage, or sessionStorage and found no forms or third-party scripts.
+- The live CSP is self-only (`default-src`, `script-src`, `style-src`, `connect-src`, and `font-src`), with `object-src 'none'`, `base-uri 'self'`, `form-action 'self'`, and `frame-ancestors 'none'`. HSTS, nosniff, Referrer-Policy, and Permissions-Policy are present. Hashed assets have `Cache-Control: public, max-age=31536000, immutable`; `sw.js` is `no-cache`.
+- This is a static site/CLI with no server-side API endpoint, sign-in, billing, or product-unlock call. Rate-limit probing and Entra validation are therefore not applicable.
 
-Run and record NVDA, JAWS, and VoiceOver tests with the sample fixture and
-common-shell wrapped commands (including rewrites, ANSI, errors, links,
-Unicode, and earcons off/on). Re-submit after that evidence is added.
+## Retest checklist
+
+1. Fix and claim-test ordered stdout/stderr normalization.
+2. Complete and record NVDA, JAWS, VoiceOver, and representative-shell pilots.
+3. Investigate the live Lighthouse total-blocking-time variance and demonstrate repeatable mobile performance ≥90.
+4. Re-run every claim command, `npm test`, build/package/consumer checks, and live deployment comparison.
