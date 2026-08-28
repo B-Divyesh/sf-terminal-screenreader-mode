@@ -1,0 +1,10 @@
+{
+  "slug": "terminal-screenreader-mode",
+  "title": "Terminal Screenreader Mode",
+  "summary": "Turn changing terminal output into a stable transcript",
+  "artifact_class": "cli",
+  "user": "Blind and low-vision developers who use NVDA, JAWS, or VoiceOver with streaming command output.",
+  "job": "Wrap a command, remove volatile terminal rendering, and read a stable timestamped transcript without losing place.",
+  "monetization": "free",
+  "privacy": "Commands and output stay in the local process. A transcript file is created only when requested."
+}
