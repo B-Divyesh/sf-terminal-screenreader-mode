@@ -69,11 +69,19 @@ normalization with JSON link output, and wrapped exit-code propagation (7).
 
 ## Deployment and live identity
 
-This repair preserves the static deployment class. Push this commit to `main`
-to use the factory's static deployment path, then repeat deployed identity,
-headers, links, offline reload, and browser QA against
-`https://terminal-screenreader-mode.sociobot.in`. This worker made no direct
-infrastructure change.
+This repair preserves the static deployment class. Commit
+`2fa0f679da7f4cb51f08690eedcaec1b696b15a4` was pushed to `origin/main`, the
+work order's deployment handoff. This repository has no deployment script or
+GitHub Actions workflow, and the product contract assigns infrastructure
+deployment to the factory.
+
+The repair changes only test calibration and handoff documentation; the built
+static payload is unchanged. Live identity was rechecked after the push:
+`index.html`, JS, CSS, and `sw.js` all match the deployed URL byte-for-byte
+with the following SHA-256 values: `be891b0368ebcb86bf5f90ac5b3f067e69a0d2364f48b8848d6ac658eb78febb`,
+`1d13d3c4cd727c3395b4a80130c6b75624588833ac1a845482c3e15cc71bd908`,
+`92ce53ba91af09df19f376ed181a35c9b2f132d29413fee462c356e4e972c542`, and
+`63f36089d7e528a4cfffe0eba9c99236daa998af6fc3d3a15a8a6402864a5c02`.
 
 ## Remaining external prerequisite
 
