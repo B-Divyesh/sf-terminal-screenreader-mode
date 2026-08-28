@@ -38,7 +38,9 @@ The production site is written to `dist/site`; the release CLI is `target/releas
 
 ## Deployment
 
-Static deployment remains the original class. Push `main` to the configured `origin`; the static deployment configuration in `dist/site/staticwebapp.config.json` supplies the known-route rewrites, 404 response override, security policy, and immutable asset caching.
+Static deployment remains the original class. Repair commit `ac06c79` was pushed to `origin/main` on 28 August 2026 UTC, which is the available static deployment trigger. At the final worker check, `https://terminal-screenreader-mode.sociobot.in` still served the former index hash `2ae4302a54e4734fa92f23ae74fbb87284fde1b9730b3294642233efae465131` (including the prior 200 soft-404); the new local index hash is `aee1bcd4621b249aa6fdb61ff8cb1902db0f480b8b345e2103a9db97d0290d7e`. The source repair is committed and pushed; the external static deployment has not propagated within this worker's verification window.
+
+The deployment configuration in `dist/site/staticwebapp.config.json` supplies known-route rewrites, the 404 response override, security policy, and immutable asset caching when the static host picks up the pushed commit.
 
 ## Known gap
 
