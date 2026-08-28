@@ -35,7 +35,7 @@ required before registry publication.
   `tsrm-site-v3`, tested old-cache deletion, added 200% text coverage, and made
   every button name explicit for cold accessibility checks.
 
-## Local verification — 28 August 2026 UTC
+## Verified repair evidence — 28 August 2026 UTC
 
 ```sh
 npm ci
@@ -75,14 +75,55 @@ cargo check --target x86_64-apple-darwin
 - Evidence: `.factory/qa-evidence/repair-2/` (three Lighthouse JSON reports,
   desktop/mobile screenshots, and `verify.json`).
 
+### Independent retest after clean install
+
+The repair commit is `596735033db0eed79e5d7a30ae1dd18ca50cb940`. A fresh
+`npm ci` installed 23 packages and audited 24 with zero vulnerabilities. The
+complete `npm test` run passed all 14 Rust tests and 56 Playwright tests across
+desktop and 390 px mobile (four viewport-specific skips were intentional).
+`npm run lint`, `npm run package`, `npm audit --audit-level=high`, and both
+Windows GNU and macOS Rust target checks passed.
+
+The verifier's alternating stream probe was rerun against the release binary:
+
+```text
+30 stdout-1,stderr-1,stdout-2,stderr-2
+```
+
+A clean install from the packaged crate passed `tsrm --help`, the six-record
+demo, and 100 additional alternating-stream runs with this exact result:
+
+```text
+100 stdout-1,stderr-1,stdout-2,stderr-2
+```
+
+Fresh Lighthouse 13.4.1 mobile-default runs against the production build were
+100 for Performance, Accessibility, Best Practices, and SEO in all three
+runs. LCP was 1381.447 ms, 1381.589 ms, and 1360.889 ms; total blocking time
+and CLS were 0 in every run. The complete reports are
+`.factory/qa-evidence/repair-2/lighthouse-retest-1.json`,
+`lighthouse-retest-2.json`, and `lighthouse-retest-3.json`.
+
+Post-deploy verification at `https://terminal-screenreader-mode.sociobot.in`
+returned HTTP 200 with no browser console errors, title `Terminal Screenreader
+Mode — Stable CLI output`, `lang=en`, one `h1`, one `main`, no missing image
+alt text, and no unnamed buttons. The current live and freshly built
+`dist/site/index.html` SHA-256 are both
+`3799dae6899b7f559247b658bc65ce0afb7bd4f2375c3adb0338a7a34fe8fdb4`.
+Screenshots and machine report are in
+`.factory/qa-evidence/repair-2/live-retest/`.
+
 ## Deployment
 
-Deployment evidence will be appended after pushing the repair and uploading
-`dist/site` to the existing Azure Static Web App. No registry publication is
-performed by this repository.
+`main` at the origin is
+`596735033db0eed79e5d7a30ae1dd18ca50cb940`, and the deployed live document
+matches the build hash above. The static deployment uses `dist/site`; no crate
+registry publication is performed by this repository.
 
 ## Known gap and next step
 
 The verifier's requested NVDA, JAWS, and VoiceOver pilot cannot be completed in
-this Linux container. Run the recorded protocol with real Windows/macOS users,
-append signed results to `.factory/compatibility.md`, and then publish the crate.
+this Linux container: no named screen-reader executable, Wine, or Windows/macOS
+test environment is available. This remains an external release gate. Run the
+recorded protocol with real Windows/macOS users, append signed results to
+`.factory/compatibility.md`, and then publish the crate.
