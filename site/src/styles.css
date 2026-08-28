@@ -75,8 +75,9 @@ h1 { max-width: 12ch; margin: 0; font-size: clamp(2.5rem, 5.8vw, 5rem); letter-s
 .steps p { margin: 0; color: var(--muted); }
 code { color: var(--signal); font-family: ui-monospace, monospace; }
 .install-grid { margin-left: clamp(0px, 8vw, 112px); display: grid; grid-template-columns: .75fr 1.25fr; gap: 48px; align-items: start; }
+.install-grid > * { min-width: 0; }
 .install-grid p { margin-top: 0; color: var(--muted); }
-.command-box { border-left: 8px solid var(--signal); background: var(--panel); padding: 24px; }
+.command-box { min-width: 0; overflow: hidden; border-left: 8px solid var(--signal); background: var(--panel); padding: 24px; }
 .command-box code { display: block; overflow-x: auto; white-space: nowrap; margin-bottom: 20px; }
 .copy-status { min-height: 26px; margin-left: clamp(0px, 8vw, 112px); color: var(--signal); }
 .boundary-copy { max-width: 62ch; margin-left: clamp(0px, 8vw, 112px); font-size: 1.1rem; color: var(--muted); }

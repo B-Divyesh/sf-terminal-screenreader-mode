@@ -50,7 +50,6 @@ pub struct Normalizer {
     osc_links: Vec<String>,
     carriage_pending: bool,
     pending_records: Vec<Record>,
-    last_text: Option<String>,
 }
 
 impl Default for Normalizer {
@@ -63,7 +62,6 @@ impl Default for Normalizer {
             osc_links: Vec::new(),
             carriage_pending: false,
             pending_records: Vec::new(),
-            last_text: None,
         }
     }
 }
@@ -150,7 +148,6 @@ impl Normalizer {
             self.line.clear();
             self.osc_links.clear();
             self.pending_records.clear();
-            self.last_text = None;
             self.carriage_pending = false;
         }
     }
@@ -159,7 +156,6 @@ impl Normalizer {
         match final_byte {
             b'A' | b'F' => {
                 self.pending_records.clear();
-                self.last_text = None;
             }
             b'J' | b'K' => {
                 self.line.clear();
@@ -192,12 +188,6 @@ impl Normalizer {
             self.osc_links.clear();
             return Vec::new();
         };
-        if self.last_text.as_deref() == Some(text.as_str()) {
-            self.osc_links.clear();
-            return Vec::new();
-        }
-        self.last_text = Some(text.clone());
-
         let mut records = vec![Record {
             kind: classify(&text),
             text: heading_text(text),
@@ -259,7 +249,11 @@ fn heading_text(text: String) -> String {
 fn extract_links(text: &str) -> Vec<String> {
     let mut links = Vec::new();
     let mut rest = text;
-    while let Some(start) = rest.find("https://").or_else(|| rest.find("http://")) {
+    while let Some(start) = [rest.find("https://"), rest.find("http://")]
+        .into_iter()
+        .flatten()
+        .min()
+    {
         let candidate = &rest[start..];
         let end = candidate
             .find(|c: char| c.is_whitespace() || matches!(c, ')' | ']' | '}' | '>' | '"' | '\''))
@@ -364,5 +358,26 @@ mod tests {
                 .collect::<Vec<_>>(),
             ["Done"]
         );
+    }
+
+    #[test]
+    fn preserves_repeated_complete_lines_and_multiple_links() {
+        let mut normalizer = Normalizer::default();
+        let mut records =
+            normalizer.feed(b"same\nsame\nhttp://first.test then https://second.test\n");
+        records.extend(normalizer.finish());
+        assert_eq!(
+            records
+                .iter()
+                .filter(|record| record.text == "same")
+                .count(),
+            2
+        );
+        assert!(records
+            .iter()
+            .any(|record| record.text == "http://first.test"));
+        assert!(records
+            .iter()
+            .any(|record| record.text == "https://second.test"));
     }
 }

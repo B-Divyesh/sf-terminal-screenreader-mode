@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 import { readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 
-for (const route of ["/", "/demo", "/privacy", "/terms", "/missing-page"]) {
+for (const route of ["/", "/demo", "/privacy", "/terms", "/missing-page", "/404.html"]) {
   test(`${route} has one accessible page heading and no serious axe issues`, async ({ page }) => {
     const errors: string[] = [];
     page.on("console", (message) => { if (message.type() === "error") errors.push(message.text()); });

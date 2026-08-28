@@ -41,7 +41,7 @@ struct OutputArgs {
     #[arg(long)]
     no_timestamps: bool,
     /// Play a terminal bell before headings and errors
-    #[arg(long)]
+    #[arg(long, conflicts_with = "json")]
     earcons: bool,
     /// Also save the transcript to this file
     #[arg(short, long, value_name = "FILE")]
@@ -73,7 +73,18 @@ struct JsonRecord<'a> {
 
 impl TranscriptWriter {
     fn new(options: OutputArgs) -> io::Result<Self> {
-        let file = options.output.as_ref().map(File::create).transpose()?;
+        let file = options
+            .output
+            .as_ref()
+            .map(|path| {
+                File::create(path).map_err(|error| {
+                    io::Error::new(
+                        error.kind(),
+                        format!("could not create transcript at {}: {error}", path.display()),
+                    )
+                })
+            })
+            .transpose()?;
         Ok(Self {
             options,
             file,

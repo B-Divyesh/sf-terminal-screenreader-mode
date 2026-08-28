@@ -12,9 +12,10 @@ test("@claim:stable-rewrites emits only stable lines", async () => {
   expect(output).toContain("text    | 18 checks passed");
   expect(output).not.toContain("Resolving 2 of 18");
   expect(output).not.toContain("Resolving 11 of 18");
+  expect(output.trim().split("\n")).toHaveLength(6);
 });
 
-test("@claim:local-default makes no default file or browser storage", async ({ page }) => {
+test("@claim:local-default makes no default file or browser storage", async ({ page, context }) => {
   const work = mkdtempSync(join(tmpdir(), "tsrm-claim-"));
   const result = spawnSync(binary, ["normalize", "--no-timestamps"], { cwd: work, input: "Done\n", encoding: "utf8" });
   expect(result.status).toBe(0);
@@ -24,6 +25,9 @@ test("@claim:local-default makes no default file or browser storage", async ({ p
   await page.goto("/demo");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   expect(await page.evaluate(() => [localStorage.length, sessionStorage.length])).toEqual([0, 0]);
+  expect(await context.cookies()).toEqual([]);
+  expect(await page.locator("form").count()).toBe(0);
+  expect(await page.locator("script[src]").evaluateAll((scripts) => scripts.every((script) => new URL((script as HTMLScriptElement).src).origin === location.origin))).toBe(true);
   expect(requests.every((url) => new URL(url).origin === "http://127.0.0.1:4173")).toBe(true);
 });
 
@@ -46,6 +50,30 @@ test("@claim:exit-code returns the wrapped status", async () => {
 test("@claim:unicode-safe keeps Unicode output", async () => {
   const result = spawnSync(binary, ["normalize", "--no-timestamps"], { input: "完成 ✓\n", encoding: "utf8" });
   expect(result.stdout).toContain("完成 ✓");
+  const invalid = spawnSync(binary, ["normalize", "--no-timestamps"], { input: Buffer.from([0x66, 0x80, 0x0a]), encoding: "utf8" });
+  expect(invalid.status).toBe(0);
+  expect(invalid.stdout).toContain("f�");
+});
+
+test("@claim:semantic-labels labels headings and errors", async () => {
+  const result = spawnSync(binary, ["normalize", "--no-timestamps"], { input: "## Results\nError: build failed\n", encoding: "utf8" });
+  expect(result.stdout).toContain("heading | Results");
+  expect(result.stdout).toContain("error   | Error: build failed");
+});
+
+test("@claim:output-file saves the printed transcript when requested", async () => {
+  const work = mkdtempSync(join(tmpdir(), "tsrm-output-"));
+  const path = join(work, "build.transcript");
+  const result = spawnSync(binary, ["normalize", "--no-timestamps", "--output", path], { input: "Done\n", encoding: "utf8" });
+  expect(result.status).toBe(0);
+  expect(readFileSync(path, "utf8")).toBe(result.stdout);
+});
+
+test("@claim:earcons-off keeps sounds opt-in", async () => {
+  const quiet = spawnSync(binary, ["normalize", "--no-timestamps"], { input: "## Results\n", encoding: "utf8" });
+  const audible = spawnSync(binary, ["normalize", "--no-timestamps", "--earcons"], { input: "## Results\n", encoding: "utf8" });
+  expect(quiet.stdout).not.toContain("\u0007");
+  expect(audible.stdout.startsWith("\u0007")).toBe(true);
 });
 
 test("@claim:timestamped adds UTC time by default", async () => {

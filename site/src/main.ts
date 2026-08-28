@@ -62,7 +62,7 @@ function terminalRecording(showAll: boolean, homePreview = false): string {
     return `<li class="terminal-line ${showAll ? "is-visible" : ""}" data-line="${index}"><span class="line-kind">${kind}</span><span>${escaped}</span></li>`;
   }).join("");
   return `<div class="terminal-block ${homePreview ? "home-terminal" : ""}" data-recording>
-    <div class="terminal-topline"><span>tsrm demo --no-timestamps</span><span aria-label="Local process">LOCAL / 00:06</span></div>
+    <div class="terminal-topline"><span>tsrm demo --no-timestamps</span><span aria-label="Local process">LOCAL / 6 LINES</span></div>
     <div class="terminal-controls" aria-label="Recording controls">
       <button type="button" data-action="play">Play recording</button>
       <button type="button" data-action="pause">Pause</button>
@@ -109,7 +109,7 @@ function homePage(): string {
       <div class="section-label"><span>03</span><h2 id="install-heading">Install the local CLI</h2></div>
       <div class="install-grid">
         <div><p>Build with Rust 1.85 or newer. No account or service key is needed.</p><a class="text-link" href="https://github.com/B-Divyesh/sf-terminal-screenreader-mode">Read the source on GitHub <span class="sr-only">(external site)</span></a></div>
-        <div class="command-box"><code>cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode</code><button type="button" data-copy="cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode">Copy install command</button></div>
+        <div class="command-box"><code tabindex="0" aria-label="Install command">cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode</code><button type="button" data-copy="cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode">Copy install command</button></div>
       </div>
       <p class="copy-status" role="status" aria-live="polite"></p>
     </section>
@@ -125,7 +125,7 @@ function demoPage(): string {
     <section class="demo-intro">
       <p class="eyebrow">Bundled sandbox</p>
       <h1>Turn noisy sample output into stable lines</h1>
-      <p>This recording uses a six-second build fixture. It reads no files and stores no changes.</p>
+      <p>This recording uses a short build fixture. It reads no personal files and stores no changes.</p>
     </section>
     ${terminalRecording(true)}
     <section class="demo-explainer" aria-labelledby="demo-details-heading">

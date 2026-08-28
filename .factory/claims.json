@@ -36,10 +36,31 @@
   },
   {
     "id": "unicode-safe",
-    "claim": "Keeps Unicode output intact.",
+    "claim": "Keeps valid Unicode intact and replaces invalid UTF-8 without crashing.",
     "where": "README",
     "test": "npm test -- --grep @claim:unicode-safe",
     "sandbox": "UTF-8 sample piped into a fresh CLI process"
+  },
+  {
+    "id": "semantic-labels",
+    "claim": "Labels headings and errors as separate transcript record types.",
+    "where": "how it works, README",
+    "test": "npm test -- --grep @claim:semantic-labels",
+    "sandbox": "heading and error sample piped into a fresh CLI process"
+  },
+  {
+    "id": "output-file",
+    "claim": "Saves the printed transcript only when --output names a file.",
+    "where": "README",
+    "test": "npm test -- --grep @claim:output-file",
+    "sandbox": "fresh temporary directory with an explicit output path"
+  },
+  {
+    "id": "earcons-off",
+    "claim": "Earcons are off by default and play only when --earcons is passed.",
+    "where": "README",
+    "test": "npm test -- --grep @claim:earcons-off",
+    "sandbox": "fresh CLI processes with and without the earcon flag"
   },
   {
     "id": "timestamped",
