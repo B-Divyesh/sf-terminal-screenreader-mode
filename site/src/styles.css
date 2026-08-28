@@ -88,7 +88,7 @@ code { color: var(--signal); font-family: ui-monospace, monospace; }
 .demo-banner { max-width: 1440px; min-height: 58px; margin: auto; padding: 8px clamp(20px, 4vw, 64px); display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--amber); color: #141006; font-family: ui-monospace, monospace; }
 .demo-banner div { display: flex; align-items: center; gap: 12px; }
 .demo-banner button { background: #141006; color: var(--amber); border-color: #141006; }
-.demo-banner a { color: #141006; font-weight: 800; }
+.demo-banner a { min-height: 44px; display: inline-flex; align-items: center; color: #141006; font-weight: 800; }
 .demo-main { padding: clamp(56px, 8vw, 112px) clamp(20px, 5vw, 80px); }
 .demo-intro { max-width: 62rem; margin-bottom: 56px; }
 .demo-intro h1 { max-width: 16ch; font-size: clamp(2.5rem, 6vw, 5.5rem); }

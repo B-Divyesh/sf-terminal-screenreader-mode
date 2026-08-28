@@ -59,15 +59,17 @@ test("desktop first screen keeps the action and facts in view", async ({ page },
 });
 
 test("all visible interactive targets meet the 44 pixel minimum", async ({ page }) => {
-  await page.goto("/");
-  const undersized = await page.locator("a, button, [tabindex]:not([tabindex='-1'])").evaluateAll((elements) => elements
-    .filter((element) => {
-      const style = getComputedStyle(element);
-      const rect = element.getBoundingClientRect();
-      return style.visibility !== "hidden" && style.display !== "none" && (rect.width < 44 || rect.height < 44);
-    })
-    .map((element) => ({ text: (element.textContent || "").trim(), rect: element.getBoundingClientRect().toJSON() })));
-  expect(undersized).toEqual([]);
+  for (const route of ["/", "/demo", "/privacy", "/terms", "/missing-page"]) {
+    await page.goto(route);
+    const undersized = await page.locator("a, button, [tabindex]:not([tabindex='-1'])").evaluateAll((elements) => elements
+      .filter((element) => {
+        const style = getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        return style.visibility !== "hidden" && style.display !== "none" && (rect.width < 44 || rect.height < 44);
+      })
+      .map((element) => ({ text: (element.textContent || "").trim(), rect: element.getBoundingClientRect().toJSON() })));
+    expect(undersized, route).toEqual([]);
+  }
 });
 
 test("every entering transcript row keeps accessible contrast", async ({ page }) => {
