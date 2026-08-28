@@ -9,6 +9,7 @@ readme = "README.md"
 repository = "https://github.com/B-Divyesh/sf-terminal-screenreader-mode"
 keywords = ["accessibility", "terminal", "screen-reader", "cli"]
 categories = ["command-line-utilities", "accessibility"]
+include = ["src/**", "tests/**", "examples/**", "Cargo.toml", "Cargo.lock", "README.md", "CHANGELOG.md", "LICENSE"]
 
 [[bin]]
 name = "tsrm"
@@ -24,4 +25,3 @@ serde_json = "1.0.132"
 strip = true
 lto = true
 codegen-units = 1
-

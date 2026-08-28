@@ -170,8 +170,15 @@ fn run_command(args: RunArgs) -> Result<i32, Box<dyn std::error::Error>> {
 
     let stdout = child.stdout.take().expect("piped stdout");
     let stderr = child.stderr.take().expect("piped stderr");
-    let (sender, receiver) = mpsc::channel::<Option<Vec<u8>>>();
-    for mut stream in [Box::new(stdout) as Box<dyn Read + Send>, Box::new(stderr)] {
+    enum StreamEvent {
+        Data(usize, Vec<u8>),
+        Done,
+    }
+    let (sender, receiver) = mpsc::channel::<StreamEvent>();
+    for (stream_id, mut stream) in [Box::new(stdout) as Box<dyn Read + Send>, Box::new(stderr)]
+        .into_iter()
+        .enumerate()
+    {
         let sender = sender.clone();
         thread::spawn(move || {
             let mut buffer = [0_u8; 4096];
@@ -179,27 +186,34 @@ fn run_command(args: RunArgs) -> Result<i32, Box<dyn std::error::Error>> {
                 match stream.read(&mut buffer) {
                     Ok(0) | Err(_) => break,
                     Ok(length) => {
-                        if sender.send(Some(buffer[..length].to_vec())).is_err() {
+                        if sender
+                            .send(StreamEvent::Data(stream_id, buffer[..length].to_vec()))
+                            .is_err()
+                        {
                             return;
                         }
                     }
                 }
             }
-            let _ = sender.send(None);
+            let _ = sender.send(StreamEvent::Done);
         });
     }
     drop(sender);
 
     let mut writer = TranscriptWriter::new(args.output_args)?;
-    let mut normalizer = Normalizer::default();
+    let mut normalizers = [Normalizer::default(), Normalizer::default()];
     let mut finished_streams = 0;
     while finished_streams < 2 {
         match receiver.recv()? {
-            Some(bytes) => writer.emit_many(normalizer.feed(&bytes))?,
-            None => finished_streams += 1,
+            StreamEvent::Data(stream_id, bytes) => {
+                writer.emit_many(normalizers[stream_id].feed(&bytes))?
+            }
+            StreamEvent::Done => finished_streams += 1,
         }
     }
-    writer.emit_many(normalizer.finish())?;
+    for normalizer in &mut normalizers {
+        writer.emit_many(normalizer.finish())?;
+    }
     let status = child.wait()?;
     if writer.count == 0 {
         writer.emit(&Record {
