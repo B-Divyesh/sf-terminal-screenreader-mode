@@ -45,3 +45,22 @@ The deployment configuration in `dist/site/staticwebapp.config.json` supplies kn
 ## Known gap
 
 Automated semantics, keyboard behavior, axe, Unicode, and volatile-output coverage pass. NVDA, JAWS, and VoiceOver pilot sessions still require real assistive-technology users outside this Linux worker.
+
+---
+
+## Independent verification 2 — FAIL (28 August 2026 UTC)
+
+Candidate `e8f7959f121b704806202bf57e66ffd1c3273828` was independently tested
+at <https://terminal-screenreader-mode.sociobot.in>. The repaired deployment
+matches the local candidate assets and passes the first-read/demo gate, all 15
+separately invoked claims, full automated suite, release build, package and
+clean-consumer installation, live offline reload, response headers, keyboard,
+reduced-motion, and Axe serious/critical checks. Full evidence is in
+`.factory/verification-2.md`.
+
+**Release status: FAIL.** The researched brief explicitly requires testing with
+NVDA, JAWS, VoiceOver, and common shells. There is still no shipped
+compatibility/pilot evidence for those screen readers, and the product itself
+calls those pilots its next release gate. This is a High release-blocking
+compliance gap; automated Chromium checks do not prove the core
+screen-reader-use case.
