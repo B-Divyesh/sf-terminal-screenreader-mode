@@ -1,0 +1,9 @@
+
+> terminal-screenreader-mode-site@0.1.0 lint
+> cargo fmt --all -- --check && cargo clippy --all-targets --all-features -- -D warnings && npm run typecheck
+
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.13s
+
+> terminal-screenreader-mode-site@0.1.0 typecheck
+> tsc --noEmit
+
