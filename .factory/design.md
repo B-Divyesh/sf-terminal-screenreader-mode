@@ -57,7 +57,7 @@ Generated image output is project-owned under the factory asset license. Hand-ma
 
 ## Motion policy
 
-One signature motion shows noisy amber rows collapsing into a single mint transcript line during the terminal recording. Playback is user-started, lasts under six seconds, and can be paused or reset. Nothing auto-plays or loops. With `prefers-reduced-motion: reduce`, every row appears immediately and all transforms and transitions are disabled.
+One signature motion slides each fully opaque transcript row into its stable position during the terminal recording. Keeping the text opaque preserves contrast throughout the transition. Playback is user-started, lasts under six seconds, and can be paused or reset. Nothing auto-plays or loops. With `prefers-reduced-motion: reduce`, every row appears immediately and all transforms and transitions are disabled.
 
 ## Responsive intent
 

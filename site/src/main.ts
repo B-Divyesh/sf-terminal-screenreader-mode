@@ -44,7 +44,7 @@ function shell(content: string, demo = false): string {
         <a href="/terms" data-route>Terms</a>
         <a href="https://hello-factory.sociobot.in">Built by Param Factory <span class="sr-only">(external site)</span></a>
       </div>
-      <p class="build-id">v0.1.0 · build 2</p>
+      <p class="build-id">v0.1.0 · build 3</p>
     </footer>
     <div class="route-status sr-only" aria-live="polite"></div>`;
 }

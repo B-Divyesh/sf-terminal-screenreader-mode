@@ -70,6 +70,29 @@ test("all visible interactive targets meet the 44 pixel minimum", async ({ page 
   expect(undersized).toEqual([]);
 });
 
+test("every entering transcript row keeps accessible contrast", async ({ page }) => {
+  await page.goto("/demo");
+  await page.getByRole("button", { name: "Clear output" }).click();
+  await page.getByRole("button", { name: "Play recording" }).click();
+
+  for (let index = 0; index < 6; index += 1) {
+    const enteringLine = page.locator(".terminal-line.is-visible").nth(index);
+    await expect(enteringLine).toBeVisible();
+    await enteringLine.evaluate((line) => {
+      for (const animation of line.getAnimations()) {
+        animation.pause();
+        animation.currentTime = 110;
+      }
+    });
+    await expect(enteringLine).toHaveCSS("opacity", "1");
+    const results = await new AxeBuilder({ page }).analyze();
+    expect(
+      results.violations.filter((violation) => ["serious", "critical"].includes(violation.impact ?? "")),
+      `transcript row ${index + 1} at the 110 ms animation midpoint`,
+    ).toEqual([]);
+  }
+});
+
 test("production assets stay inside the stated budgets", async () => {
   const manifest = JSON.parse(readFileSync(resolve("dist/site/.vite/manifest.json"), "utf8"));
   const entry = manifest["index.html"];
@@ -122,7 +145,7 @@ test("static deployment includes routes and security policy", async () => {
   ]));
   expect(config.globalHeaders["Content-Security-Policy"]).toContain("script-src 'self'");
   const worker = readFileSync(resolve("dist/site/sw.js"), "utf8");
-  expect(worker).toContain('const CACHE = "tsrm-site-v3"');
+  expect(worker).toContain('const CACHE = "tsrm-site-v4"');
   expect(worker).toContain("caches.delete(key)");
   for (const file of ["index.html", "demo/index.html", "privacy/index.html", "terms/index.html", "404.html", "robots.txt", "sitemap.xml"]) expect(statSync(resolve("dist/site", file)).isFile()).toBe(true);
 });

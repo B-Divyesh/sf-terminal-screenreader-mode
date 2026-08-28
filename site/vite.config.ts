@@ -26,7 +26,7 @@ function offlineShellPlugin() {
       const uniqueCore = [...new Set(core)];
       const workerTemplate = readFileSync(resolve(__dirname, "public/sw.js"), "utf8");
       const worker = workerTemplate
-        .replace('const CACHE = "tsrm-site-dev-v3";', 'const CACHE = "tsrm-site-v3";')
+        .replace('const CACHE = "tsrm-site-dev-v4";', 'const CACHE = "tsrm-site-v4";')
         .replace('const CORE = ["/", "/demo", "/privacy", "/terms", "/favicon.svg"];', `const CORE = ${JSON.stringify(uniqueCore)};`);
       writeFileSync(join(outDir, "sw.js"), worker);
 
