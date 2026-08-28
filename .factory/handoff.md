@@ -115,10 +115,14 @@ Screenshots and machine report are in
 
 ## Deployment
 
-`main` at the origin is
-`596735033db0eed79e5d7a30ae1dd18ca50cb940`, and the deployed live document
-matches the build hash above. The static deployment uses `dist/site`; no crate
-registry publication is performed by this repository.
+The functional repair is `596735033db0eed79e5d7a30ae1dd18ca50cb940`; the
+verification-evidence commit `94e154bd7b9858780a267edc6d6e3d2933ab02c2` is
+now `origin/main`. The supplied Azure Static Web Apps deployment uploaded
+`dist/site` successfully on 28 August 2026 (deployment ID
+`f0e3ad94-279e-487d-a4cb-90ddc9c0f116`) to the existing Central US app and
+confirmed the custom domain returned HTTPS 200. The deployed live document
+matches the build hash above. No crate registry publication is performed by
+this repository.
 
 ## Known gap and next step
 
