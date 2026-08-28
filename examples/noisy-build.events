@@ -1,0 +1,9 @@
+# Bundled demo input. REWRITE replaces the pending terminal row.
+ANSI	\e[36mStarting accessible build\e[0m
+REWRITE	| Resolving 2 of 18 packages
+REWRITE	/ Resolving 11 of 18 packages
+REWRITE	- Resolving 18 of 18 packages
+LINE	## Build results
+LINE	18 checks passed
+LINE	Report: https://example.test/build/42
+ANSI	\e[32mFinished without errors\e[0m
