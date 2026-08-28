@@ -1,5 +1,24 @@
 # Repair handoff — Terminal Screenreader Mode v0.1.0
 
+## Independent verification 3 — FAIL (28 August 2026 UTC)
+
+Candidate `fae29ef96040aae5dead9c07d59a6aa0035aac56` at
+https://terminal-screenreader-mode.sociobot.in **FAILS release acceptance**.
+See `.factory/verification-3.md` for the complete independent evidence.
+
+Release blockers:
+
+- Live desktop `/demo` produces an axe **serious** color-contrast violation
+  (4.42:1 versus the required 4.5:1) while a transcript line is entering after
+  **Play recording**.
+- The brief-required NVDA, JAWS, and VoiceOver pilot has not been performed;
+  `.factory/compatibility.md` explicitly records it as pending.
+
+The claims, local build/lint/test/package, packed-consumer CLI, deployment
+identity, privacy request log, offline reload, response headers, keyboard, and
+mobile checks otherwise passed in this verification. No product code was
+changed.
+
 ## Status
 
 This repair targets independent verifier report commit
