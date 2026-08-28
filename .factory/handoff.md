@@ -62,16 +62,19 @@ cargo check --target x86_64-apple-darwin
 - A fresh consumer installed the packed crate and exercised version, help, the
   six-record demo, Unicode JSON, wrapped exit 7, and 100 alternating
   stdout/stderr runs. All passed.
-- Chromium 145 browser QA passed at 1440×900 and 390×844: keyboard skip-link
-  routing, playback, no horizontal overflow, 44 px targets, zero serious or
-  critical axe findings during the animation midpoint, no console errors, no
-  cookies or web storage, and no cross-origin requests.
+- Chromium 145 browser QA passed locally and on the deployed site at 1440×900
+  and 390×844: keyboard skip-link routing, playback, no horizontal overflow,
+  44 px targets, zero serious or critical axe findings during every row's
+  animation midpoint, no console errors, no cookies or web storage, and no
+  cross-origin requests.
 - Offline reload and in-app navigation passed from cache `tsrm-site-v4`.
 - `/opt/fleet/lib/verify-url.sh` passed locally: title, `lang=en`, one h1, main
   landmark, alt text, button names, and console checks.
 - Three Lighthouse 13.4.1 mobile-default runs scored 100 Performance, 100
   Accessibility, 100 Best Practices, and 100 SEO. LCP was 1,281 ms, 1,478 ms,
   and 1,485 ms; TBT was 31 ms, 53 ms, and 42 ms; CLS was 0 in all runs.
+- A post-deploy Lighthouse run also scored 100 in all four categories, with
+  LCP 794 ms, TBT 32.5 ms, and CLS 0.
 - Static response policy is covered by the production-config test: explicit
   routes, real 404 rewrite, CSP, immutable hashed assets, no-cache service
   worker, and versioned old-cache deletion.
@@ -91,9 +94,31 @@ sw.js                            63f36089d7e528a4cfffe0eba9c99236daa998af6fc3d3a
 
 ## Deployment
 
-Target: Azure Static Web Apps resource `sf-terminal-screenreader-mode` in
-resource group `sociobot`, using `dist/site`. Deployment and live identity
-evidence are appended below after upload.
+Azure Static Web Apps CLI 2.0.10 deployed `dist/site` to the production
+environment of resource `sf-terminal-screenreader-mode` in resource group
+`sociobot`. Azure reports build `default` as `Ready`, last updated
+`2026-08-28T19:19:01.240397Z` at
+`purple-dune-062943e10.7.azurestaticapps.net`.
+
+Post-deploy checks at `https://terminal-screenreader-mode.sociobot.in` passed:
+
+- `/`, `/demo`, `/privacy`, and `/terms` return 200; an unknown route returns
+  the designed HTTP 404; every discovered non-mailto link returns 200.
+- Live HTML, hashed JS, hashed CSS, and `sw.js` are SHA-256-identical to the
+  verified local build listed above.
+- HTML carries the restrictive CSP, HSTS, `nosniff`, referrer policy, and
+  permissions policy. Hashed CSS is immutable for one year; `sw.js` is
+  `no-cache`.
+- Fresh live contexts pass the full dynamic playback axe regression on desktop
+  and mobile. They make no cross-origin requests and create no cookies or web
+  storage.
+- A fresh live context installs cache `tsrm-site-v4`, reloads `/demo` offline,
+  and navigates offline to `/privacy`.
+- The factory URL verifier returns 200 with no console errors, one h1, one main,
+  `lang=en`, complete alt text, and named buttons.
+
+No crate registry publication was performed, as required by the CLI publishing
+policy.
 
 ## Required external pilot
 

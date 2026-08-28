@@ -1,0 +1,65 @@
+{
+  "desktop": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "title": "Demo — Terminal Screenreader Mode",
+    "skipFocused": true,
+    "mainFocused": true,
+    "midpointOpacity": "1",
+    "dynamicAxeSeriousCritical": [],
+    "undersizedTargets": [],
+    "overflow": 0,
+    "storage": {
+      "local": 0,
+      "session": 0
+    },
+    "cookies": 0,
+    "externalRequests": [],
+    "consoleErrors": []
+  },
+  "mobile": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "Demo — Terminal Screenreader Mode",
+    "skipFocused": true,
+    "mainFocused": true,
+    "midpointOpacity": "1",
+    "dynamicAxeSeriousCritical": [],
+    "undersizedTargets": [],
+    "overflow": 0,
+    "storage": {
+      "local": 0,
+      "session": 0
+    },
+    "cookies": 0,
+    "externalRequests": [],
+    "consoleErrors": []
+  },
+  "offline": {
+    "cacheBefore": {
+      "keys": [
+        "tsrm-site-v4"
+      ],
+      "entries": [
+        "/",
+        "/demo",
+        "/privacy",
+        "/terms",
+        "/favicon.svg",
+        "/404.html",
+        "/404.css",
+        "/assets/signal-recovery-640.webp",
+        "/assets/signal-recovery.webp",
+        "/assets/apple-touch-icon.png",
+        "/assets/index-DcRRykEU.js",
+        "/assets/index-CQwj0BrN.css"
+      ]
+    },
+    "heading": "Your command output stays with you",
+    "url": "https://terminal-screenreader-mode.sociobot.in/privacy"
+  }
+}
