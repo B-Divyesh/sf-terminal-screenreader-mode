@@ -8,7 +8,7 @@ use std::path::PathBuf;
 use std::process::{Command, ExitCode, Stdio};
 use std::sync::mpsc;
 use std::thread;
-use std::time::{SystemTime, UNIX_EPOCH};
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use terminal_screenreader_mode::{Kind, Normalizer, Record};
 
 #[derive(Parser)]
@@ -214,12 +214,22 @@ fn run_command(args: RunArgs) -> Result<i32, Box<dyn std::error::Error>> {
     let mut writer = TranscriptWriter::new(args.output_args)?;
     let mut normalizers = [Normalizer::default(), Normalizer::default()];
     let mut finished_streams = 0;
+    // A completed line gets a short chance to be replaced by an immediate
+    // carriage-return/cursor update.  The timeout keeps quiet, long-running
+    // commands from holding an already complete line until their next write.
+    const STABILIZATION_WINDOW: Duration = Duration::from_millis(100);
     while finished_streams < 2 {
-        match receiver.recv()? {
-            StreamEvent::Data(stream_id, bytes) => {
+        match receiver.recv_timeout(STABILIZATION_WINDOW) {
+            Ok(StreamEvent::Data(stream_id, bytes)) => {
                 writer.emit_many(normalizers[stream_id].feed(&bytes))?
             }
-            StreamEvent::Done => finished_streams += 1,
+            Ok(StreamEvent::Done) => finished_streams += 1,
+            Err(mpsc::RecvTimeoutError::Timeout) => {
+                for normalizer in &mut normalizers {
+                    writer.emit_many(normalizer.stabilize())?;
+                }
+            }
+            Err(mpsc::RecvTimeoutError::Disconnected) => break,
         }
     }
     for normalizer in &mut normalizers {

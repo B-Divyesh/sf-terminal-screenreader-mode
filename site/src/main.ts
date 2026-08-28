@@ -108,8 +108,8 @@ function homePage(): string {
     <section class="install" id="install" aria-labelledby="install-heading">
       <div class="section-label"><span>03</span><h2 id="install-heading">Install the local CLI</h2></div>
       <div class="install-grid">
-        <div><p>Build with Rust 1.85 or newer. No account or service key is needed.</p><a class="text-link" href="https://github.com/B-Divyesh/sf-terminal-screenreader-mode">Read the source on GitHub <span class="sr-only">(external site)</span></a></div>
-        <div class="command-box"><code tabindex="0" aria-label="Install command">cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode</code><button type="button" data-copy="cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode">Copy install command</button></div>
+        <div><p>Build with Rust 1.85 or newer.</p><a class="text-link" href="https://github.com/B-Divyesh/sf-terminal-screenreader-mode">Read the source on GitHub <span class="sr-only">(external site)</span></a></div>
+        <div class="command-box"><code aria-label="Install command">cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode</code><button type="button" data-copy="cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode">Copy install command</button></div>
       </div>
       <p class="copy-status" role="status" aria-live="polite"></p>
     </section>
@@ -125,7 +125,7 @@ function demoPage(): string {
     <section class="demo-intro">
       <p class="eyebrow">Bundled sandbox</p>
       <h1>Turn noisy sample output into stable lines</h1>
-      <p>This recording uses a short build fixture. It reads no personal files and stores no changes.</p>
+      <p>This recording uses a bundled build fixture. It stores no changes.</p>
     </section>
     ${terminalRecording(true)}
     <section class="demo-explainer" aria-labelledby="demo-details-heading">
@@ -140,8 +140,8 @@ function privacyPage(): string {
   return shell(`<main id="main" tabindex="-1" class="text-page">
     <p class="eyebrow">Policy · updated 28 August 2026</p>
     <h1>Your command output stays with you</h1>
-    <h2>The CLI</h2><p>tsrm processes command output in local memory. It has no network code, account, analytics, or background service.</p><p>A transcript file is created only when you pass <code>--output</code>. You choose its location and can delete it at any time.</p>
-    <h2>The docs site</h2><p>This site has no analytics, cookies, forms, or third-party scripts. Its service worker caches public site files for offline reading.</p><p>Resetting the demo changes only the page in memory. Closing or reloading the page clears that state.</p>
+    <h2>The CLI</h2><p>tsrm processes the command output you provide. It makes no network request and saves no transcript unless you pass <code>--output</code>.</p><p>You choose an output location and can delete that file at any time.</p>
+    <h2>The docs site</h2><p>This site uses no forms or third-party scripts. Its service worker caches public site files for offline reading.</p><p>Resetting the demo changes only the page in memory. Closing or reloading the page clears that state.</p>
     <h2>Questions</h2><p>Email <a href="mailto:privacy@sociobot.in">privacy@sociobot.in</a> with a privacy question.</p>
   </main>`);
 }

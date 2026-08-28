@@ -35,6 +35,31 @@ test("mobile layout stays inside a 390 pixel viewport", async ({ page }, testInf
   await expect(page.getByRole("link", { name: "Try it with sample data" })).toBeVisible();
 });
 
+test("desktop first screen keeps the action and facts in view", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "desktop project only");
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  for (const target of [
+    page.locator(".hero-summary"),
+    page.getByRole("link", { name: "Try it with sample data" }),
+    page.locator(".facts"),
+  ]) {
+    expect((await target.boundingBox())!.y + (await target.boundingBox())!.height).toBeLessThanOrEqual(900);
+  }
+});
+
+test("all visible interactive targets meet the 44 pixel minimum", async ({ page }) => {
+  await page.goto("/");
+  const undersized = await page.locator("a, button, [tabindex]:not([tabindex='-1'])").evaluateAll((elements) => elements
+    .filter((element) => {
+      const style = getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+      return style.visibility !== "hidden" && style.display !== "none" && (rect.width < 44 || rect.height < 44);
+    })
+    .map((element) => ({ text: (element.textContent || "").trim(), rect: element.getBoundingClientRect().toJSON() })));
+  expect(undersized).toEqual([]);
+});
+
 test("production assets stay inside the stated budgets", async () => {
   const manifest = JSON.parse(readFileSync(resolve("dist/site/.vite/manifest.json"), "utf8"));
   const entry = manifest["index.html"];
@@ -45,8 +70,12 @@ test("production assets stay inside the stated budgets", async () => {
 
 test("static deployment includes routes and security policy", async () => {
   const config = JSON.parse(readFileSync(resolve("dist/site/staticwebapp.config.json"), "utf8"));
-  expect(config.navigationFallback.rewrite).toBe("/index.html");
+  expect(config.navigationFallback).toBeUndefined();
   expect(config.responseOverrides["404"].rewrite).toBe("/404.html");
+  expect(config.routes).toEqual(expect.arrayContaining([
+    expect.objectContaining({ route: "/demo", rewrite: "/demo/index.html" }),
+    expect.objectContaining({ route: "/assets/*", headers: { "Cache-Control": "public, max-age=31536000, immutable" } }),
+  ]));
   expect(config.globalHeaders["Content-Security-Policy"]).toContain("script-src 'self'");
-  for (const file of ["index.html", "404.html", "robots.txt", "sitemap.xml"]) expect(statSync(resolve("dist/site", file)).isFile()).toBe(true);
+  for (const file of ["index.html", "demo/index.html", "privacy/index.html", "terms/index.html", "404.html", "robots.txt", "sitemap.xml"]) expect(statSync(resolve("dist/site", file)).isFile()).toBe(true);
 });

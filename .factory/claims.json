@@ -11,7 +11,7 @@
     "claim": "Runs locally, makes no network request, and saves nothing by default.",
     "where": "landing facts, privacy, README",
     "test": "npm test -- --grep @claim:local-default",
-    "sandbox": "fresh temporary directory and fresh browser context"
+    "sandbox": "isolated HOME, temporary directory, and working directory; an LD_PRELOAD monitor records socket, connect, and sendto calls; fresh browser context"
   },
   {
     "id": "ansi-links",
@@ -71,10 +71,10 @@
   },
   {
     "id": "demo-sandbox",
-    "claim": "The CLI demo writes its transcript only to a new temporary directory.",
+    "claim": "The CLI demo writes one transcript only to a new temporary directory.",
     "where": "demo, README",
     "test": "npm test -- --grep @claim:demo-sandbox",
-    "sandbox": "fresh demo process and asserted temporary path"
+    "sandbox": "isolated HOME, working directory, and TMPDIR; assert the sole demo directory contains only transcript.txt"
   },
   {
     "id": "mit-free",
@@ -96,5 +96,12 @@
     "where": "landing preview",
     "test": "npm test -- --grep @claim:keyboard-recording",
     "sandbox": "fresh demo page controlled with focus and Enter"
+  },
+  {
+    "id": "rust-version",
+    "claim": "Build with Rust 1.85 or newer.",
+    "where": "landing install instructions, README",
+    "test": "npm test -- --grep @claim:rust-version",
+    "sandbox": "manifest and README from a clean checkout"
   }
 ]

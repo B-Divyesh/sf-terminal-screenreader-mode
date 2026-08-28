@@ -1,21 +1,18 @@
-# Verification handoff — FAIL
+# Repair handoff — Terminal Screenreader Mode v0.1.0
 
-Candidate `e51402111095ccb0488a1fa0dff462734e7b0345` was independently tested against <https://terminal-screenreader-mode.sociobot.in> on 28 August 2026 UTC. The live deploy matches the candidate byte-for-byte for all checked deployable files. This is not a deployment-only failure.
+## Release repair
 
-The release verdict is **FAIL**. The mandatory first-read gate fails at 1440×900 because the audience sentence is cut by the fold and **Try it with sample data** starts below it. Additional high-severity defects are unbounded one-line streaming latency, sub-44 px interactive link targets, inadequate privacy/isolation claim assertions, and an incomplete service-worker offline shell. Unknown routes return 200, hashed assets receive only 30-second caching, and the crate includes 37 `node_modules` documentation files.
+This repair addresses every finding in independent verification `b9ffe8116c68d449cfcb3935e537df659ec648e9` for candidate `e51402111095ccb0488a1fa0dff462734e7b0345` while retaining the Rust `tsrm` CLI and static Vite documentation site.
 
-Full findings, measurements, claim-by-claim results, and evidence are in [`.factory/verification.md`](verification.md).
+- **QA-01:** The desktop hero now uses an even two-column grid, a smaller 72 px maximum heading, and tighter vertical rhythm. A Chromium 1440×900 regression asserts that the audience sentence, demo action, and facts all end within the viewport.
+- **QA-02:** `tsrm run` now releases a completed record after a 100 ms stabilization window instead of waiting indefinitely for more child output. Immediate carriage-return and cursor rewrites remain suppressed. A Rust integration test reads the first line from a child that sleeps for one second and requires it within 700 ms.
+- **QA-03:** The wordmark, text links, and footer links now have 44×44 px minimum targets. The browser suite measures every visible link, button, and focusable target at both desktop and 390 px.
+- **QA-04:** The privacy claim test runs the CLI with isolated HOME, TMPDIR, and working directories and an `LD_PRELOAD` monitor for `socket`, `connect`, and `sendto`; it asserts no writes or network calls. The demo claim asserts the only sandbox output is `transcript.txt` in a fresh TMPDIR. Unsupported privacy wording was removed, and the Rust-minimum claim now has a tagged test.
+- **QA-05:** The build generates a versioned service worker containing the exact hashed JavaScript and CSS paths, all routes, and shell art. Cache matching ignores response `Vary` headers so a service-worker cache works even when a static preview adds `Vary: Origin`. The claim reloads offline after one visit without an online reload and asserts both hashed assets exist in Cache Storage.
+- **QA-06 / QA-07:** The static build emits real `/demo`, `/privacy`, and `/terms` documents. Static Web Apps rewrites only these known routes, sends unknown paths through the designed 404 response override, and gives `/assets/*` immutable one-year caching.
+- **QA-08:** Anchored Cargo include paths now produce a crate with 11 intended files; `node_modules` documentation is excluded.
 
-## What passed
-
-- All 14 exact claim commands after `npm ci`.
-- `npm test`: 11 Rust tests and 47 Playwright tests passed; 1 expected project skip.
-- Production build, Rust formatting, clippy with warnings denied, TypeScript check, npm audit, and crate packaging.
-- Packaged-crate install into a clean consumer and normal, boundary, invalid-input, recovery, exit-code, JSON, Unicode, and 20-run concurrency exercises.
-- Live same-origin privacy checks, security headers, keyboard order/focus, reduced motion, responsive overflow, zero serious/critical axe findings, and no normal-flow console/page errors.
-- Live Lighthouse: 96 performance, 100 accessibility, 100 best practices, 100 SEO; LCP 1.1 s and CLS 0.
-
-## Reproduce
+## Run and verify
 
 ```sh
 npm ci
@@ -26,4 +23,23 @@ cargo clippy --all-targets --all-features -- -D warnings
 npm run package
 ```
 
-Re-verification should begin with the first-screen geometry and the literal claims sandbox, then rerun the complete matrix above. Manual NVDA, JAWS, and VoiceOver pilots are still required outside this Linux container.
+The production site is written to `dist/site`; the release CLI is `target/release/tsrm`. The publishable crate is intentionally not uploaded by this repository.
+
+## Verification evidence (28 August 2026 UTC)
+
+- Clean `npm ci`: 23 audited packages, zero vulnerabilities.
+- `npm test`: passed — 12 Rust tests (8 unit + 4 CLI integration) and 52 Playwright tests, with 2 expected desktop/mobile-only skips. This includes all 15 exact claim commands, keyboard controls, route focus, console checks, axe serious/critical checks, desktop first-read geometry, 390 px overflow, target size, privacy isolation, and Cache Storage-only offline reload.
+- `npm run build`: passed; final entry JavaScript is 4.67 KiB gzip and CSS is 3.00 KiB gzip.
+- `cargo fmt --all -- --check`, `cargo clippy --all-targets --all-features -- -D warnings`, TypeScript source check, and `npm audit --audit-level=high`: passed.
+- `cargo package --allow-dirty`: passed and verified. The archive contains 11 files (source, tests, fixture, manifest, README, CHANGELOG, and MIT license), not `node_modules`.
+- Clean consumer install from `target/package/terminal-screenreader-mode-0.1.0`: passed. `tsrm --version` printed `0.1.0`; `tsrm demo --no-timestamps` printed the six expected stable records.
+- `verify-url.sh` against the local production preview: HTTP 200, 547 ms load, no console errors, `lang=en`, one `h1`, `main`, zero missing image alt text, and zero unlabelled buttons. Evidence: `.factory/verify-repair/verify.json`.
+- Local Lighthouse 13.4.1 mobile run: Performance 99, Accessibility 100, Best Practices 100, SEO 100; FCP 987 ms, LCP 1365 ms, CLS 0. The report is `.factory/lighthouse-repair.json`. Chrome reported a tab crash during final screenshot teardown after writing the scored JSON report.
+
+## Deployment
+
+Static deployment remains the original class. Push `main` to the configured `origin`; the static deployment configuration in `dist/site/staticwebapp.config.json` supplies the known-route rewrites, 404 response override, security policy, and immutable asset caching.
+
+## Known gap
+
+Automated semantics, keyboard behavior, axe, Unicode, and volatile-output coverage pass. NVDA, JAWS, and VoiceOver pilot sessions still require real assistive-technology users outside this Linux worker.

@@ -51,7 +51,6 @@ Audited 28 August 2026 against the `plain-words` skill. Counts treat a command, 
 | --- | ---: | --- |
 | Install the local CLI | 4 | Pass |
 | Build with Rust 1.85 or newer. | 6 | Pass |
-| No account or service key is needed. | 7 | Pass |
 | Read the source on GitHub | 5 | Pass |
 | Copy install command | 3 | Pass |
 | What stays outside the tool | 5 | Pass |

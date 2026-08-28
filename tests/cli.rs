@@ -1,5 +1,7 @@
 use std::fs;
+use std::io::{BufRead, Read};
 use std::process::{Command, Stdio};
+use std::time::{Duration, Instant};
 
 fn binary() -> &'static str {
     env!("CARGO_BIN_EXE_tsrm")
@@ -51,4 +53,38 @@ fn run_returns_the_wrapped_exit_code() {
         .status()
         .unwrap();
     assert_eq!(status.code(), Some(7));
+}
+
+#[test]
+fn run_releases_a_complete_line_before_a_quiet_child_writes_again() {
+    let started = Instant::now();
+    let mut child = Command::new(binary())
+        .args([
+            "run",
+            "--no-timestamps",
+            "--",
+            "sh",
+            "-c",
+            "printf 'phase one\\n'; sleep 1; printf 'phase two\\n'",
+        ])
+        .stdout(Stdio::piped())
+        .spawn()
+        .expect("wrapper starts");
+    let mut first = String::new();
+    let mut transcript = std::io::BufReader::new(child.stdout.take().expect("piped stdout"));
+    transcript
+        .read_line(&mut first)
+        .expect("first transcript line is readable");
+    assert_eq!(first, "text    | phase one\n");
+    assert!(
+        started.elapsed() < Duration::from_millis(700),
+        "first complete line was held for too long: {:?}",
+        started.elapsed()
+    );
+    let mut remaining = String::new();
+    transcript
+        .read_to_string(&mut remaining)
+        .expect("remaining transcript is readable");
+    assert!(remaining.contains("text    | phase two"));
+    assert!(child.wait().expect("wrapper exits").success());
 }

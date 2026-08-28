@@ -83,7 +83,7 @@ npm run build
 
 ## Privacy
 
-The CLI has no network code, telemetry, accounts, or background service. The docs site has no analytics and stores no data. See [Privacy](https://terminal-screenreader-mode.sociobot.in/privacy) and [Terms](https://terminal-screenreader-mode.sociobot.in/terms).
+The CLI makes no network request and saves no transcript unless you pass `--output`. The docs use no forms or third-party scripts. See [Privacy](https://terminal-screenreader-mode.sociobot.in/privacy) and [Terms](https://terminal-screenreader-mode.sociobot.in/terms).
 
 ## License
 

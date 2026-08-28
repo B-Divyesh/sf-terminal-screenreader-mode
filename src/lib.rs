@@ -143,6 +143,18 @@ impl Normalizer {
         records
     }
 
+    /// Releases a newline-terminated record after its short rewrite window.
+    ///
+    /// Terminal programs commonly print a line, then immediately use a
+    /// carriage return or cursor-up control to replace it. Callers that read
+    /// a live stream can wait briefly for that rewrite, then call this method
+    /// so a quiet child process never leaves a complete line unspoken.
+    pub fn stabilize(&mut self) -> Vec<Record> {
+        let mut records = Vec::new();
+        self.flush_pending(&mut records);
+        records
+    }
+
     fn apply_pending_carriage(&mut self) {
         if self.carriage_pending {
             self.line.clear();

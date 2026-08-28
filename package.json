@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --config site/vite.config.ts",
+    "preview": "vite preview --config site/vite.config.ts",
     "build": "cargo build --release && vite build --config site/vite.config.ts",
     "build:site": "vite build --config site/vite.config.ts",
     "test": "cargo test && npm run build && playwright test",
