@@ -1,0 +1,6 @@
+200 https://terminal-screenreader-mode.sociobot.in/
+200 https://terminal-screenreader-mode.sociobot.in/demo
+200 https://terminal-screenreader-mode.sociobot.in/privacy
+200 https://terminal-screenreader-mode.sociobot.in/terms
+200 https://github.com/B-Divyesh/sf-terminal-screenreader-mode
+200 https://hello-factory.sociobot.in/

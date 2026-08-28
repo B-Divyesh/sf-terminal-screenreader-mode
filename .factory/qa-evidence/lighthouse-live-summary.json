@@ -1,0 +1,18 @@
+{
+  "runtimeError": null,
+  "fetchTime": "2026-08-28T16:16:19.040Z",
+  "categories": {
+    "performance": 96,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "FCP": "0.8 s",
+    "LCP": "1.1 s",
+    "TBT": "230 ms",
+    "CLS": "0",
+    "SI": "0.9 s"
+  },
+  "totalTransfer": 51227
+}

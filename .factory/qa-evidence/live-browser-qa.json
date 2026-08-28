@@ -1,0 +1,458 @@
+{
+  "desktop": {
+    "responseStatus": 200,
+    "hero": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "h1": {
+        "top": 182.1875,
+        "bottom": 786.921875,
+        "left": 72,
+        "right": 472,
+        "width": 400,
+        "height": 604.734375,
+        "fullyInViewport": true
+      },
+      "summary": {
+        "top": 814.921875,
+        "bottom": 918.5625,
+        "left": 72,
+        "right": 472,
+        "width": 400,
+        "height": 103.640625,
+        "fullyInViewport": false
+      },
+      "action": {
+        "top": 946.5625,
+        "bottom": 990.5625,
+        "left": 72,
+        "right": 472,
+        "width": 400,
+        "height": 44,
+        "fullyInViewport": false
+      },
+      "facts": {
+        "top": 1026.5625,
+        "bottom": 1074.15625,
+        "left": 72,
+        "right": 472,
+        "width": 400,
+        "height": 47.59375,
+        "fullyInViewport": false
+      },
+      "horizontalOverflow": 0
+    },
+    "axeHome": [],
+    "axeDemo": [],
+    "touchTargetsBelow44": [
+      {
+        "text": "TSRM / screenreader mode",
+        "w": 258.140625,
+        "h": 32
+      },
+      {
+        "text": "Read the source on GitHub (external site)",
+        "w": 228.78125,
+        "h": 20
+      },
+      {
+        "text": "Privacy",
+        "w": 50.703125,
+        "h": 22.390625
+      },
+      {
+        "text": "Terms",
+        "w": 41.234375,
+        "h": 22.390625
+      },
+      {
+        "text": "Built by Param Factory (external site)",
+        "w": 157.78125,
+        "h": 22.390625
+      }
+    ],
+    "tabOrder": [
+      {
+        "tag": "A",
+        "text": "Skip to main content",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "A",
+        "text": "TSRM / screenreader mode",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "A",
+        "text": "Demo",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "A",
+        "text": "Install",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "A",
+        "text": "Privacy",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "A",
+        "text": "Try it with sample data",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Play recording",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Pause",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Clear output",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "OL",
+        "text": "textStarting accessible buildheadingBuild resultstext18 checks passedtextReport: https://example.test/build/42linkhttps://example.test/build/42textFinished without errors",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "A",
+        "text": "Read the source on GitHub (external site)",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "CODE",
+        "text": "cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      }
+    ],
+    "demo": {
+      "status": 200,
+      "banner": true,
+      "reset": true,
+      "start": true,
+      "lines": 6,
+      "storage": {
+        "local": 0,
+        "session": 0,
+        "indexedDB": "object"
+      },
+      "cookies": 0,
+      "reducedMotionVisibleImmediately": 6,
+      "animationDuration": "1e-05s",
+      "swControlled": true,
+      "offlineReload": {
+        "url": "https://terminal-screenreader-mode.sociobot.in/demo",
+        "heading": "Turn noisy sample output into stable lines",
+        "error": null
+      }
+    },
+    "routeResults": [
+      {
+        "path": "/",
+        "status": 200,
+        "title": "Terminal Screenreader Mode — Stable CLI output",
+        "h1": [
+          "Read streaming commands without losing your place"
+        ],
+        "main": 1,
+        "lang": "en"
+      },
+      {
+        "path": "/demo",
+        "status": 200,
+        "title": "Demo — Terminal Screenreader Mode",
+        "h1": [
+          "Turn noisy sample output into stable lines"
+        ],
+        "main": 1,
+        "lang": "en"
+      },
+      {
+        "path": "/privacy",
+        "status": 200,
+        "title": "Privacy — Terminal Screenreader Mode",
+        "h1": [
+          "Your command output stays with you"
+        ],
+        "main": 1,
+        "lang": "en"
+      },
+      {
+        "path": "/terms",
+        "status": 200,
+        "title": "Terms — Terminal Screenreader Mode",
+        "h1": [
+          "Use the tool at your own pace"
+        ],
+        "main": 1,
+        "lang": "en"
+      },
+      {
+        "path": "/does-not-exist",
+        "status": 200,
+        "title": "Page not found — Terminal Screenreader Mode",
+        "h1": [
+          "This transcript has no matching line"
+        ],
+        "main": 1,
+        "lang": "en"
+      }
+    ],
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": [],
+    "outboundOrigins": [
+      "https://terminal-screenreader-mode.sociobot.in"
+    ]
+  },
+  "mobile": {
+    "responseStatus": 200,
+    "hero": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "h1": {
+        "top": 166.1875,
+        "bottom": 425.3125,
+        "left": 20,
+        "right": 284.890625,
+        "width": 264.890625,
+        "height": 259.125,
+        "fullyInViewport": true
+      },
+      "summary": {
+        "top": 453.3125,
+        "bottom": 537.734375,
+        "left": 20,
+        "right": 370,
+        "width": 350,
+        "height": 84.421875,
+        "fullyInViewport": true
+      },
+      "action": {
+        "top": 565.734375,
+        "bottom": 650.734375,
+        "left": 20,
+        "right": 370,
+        "width": 350,
+        "height": 85,
+        "fullyInViewport": true
+      },
+      "facts": {
+        "top": 686.734375,
+        "bottom": 795.125,
+        "left": 20,
+        "right": 370,
+        "width": 350,
+        "height": 108.390625,
+        "fullyInViewport": true
+      },
+      "horizontalOverflow": 0
+    },
+    "axeHome": [],
+    "axeDemo": [],
+    "touchTargetsBelow44": [
+      {
+        "text": "TSRM / screenreader mode",
+        "w": 77.859375,
+        "h": 32
+      },
+      {
+        "text": "Read the source on GitHub (external site)",
+        "w": 215.3125,
+        "h": 19
+      },
+      {
+        "text": "Privacy",
+        "w": 50.703125,
+        "h": 22.390625
+      },
+      {
+        "text": "Terms",
+        "w": 41.234375,
+        "h": 22.390625
+      },
+      {
+        "text": "Built by Param Factory (external site)",
+        "w": 157.78125,
+        "h": 22.390625
+      }
+    ],
+    "tabOrder": [
+      {
+        "tag": "A",
+        "text": "Skip to main content",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "A",
+        "text": "TSRM / screenreader mode",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "A",
+        "text": "Demo",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "A",
+        "text": "Privacy",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "A",
+        "text": "Try it with sample data",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Play recording",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Pause",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Clear output",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "OL",
+        "text": "textStarting accessible buildheadingBuild resultstext18 checks passedtextReport: https://example.test/build/42linkhttps://example.test/build/42textFinished without errors",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "A",
+        "text": "Read the source on GitHub (external site)",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "CODE",
+        "text": "cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Copy install command",
+        "outline": "rgb(111, 255, 176) solid 3px",
+        "outlineOffset": "3px"
+      }
+    ],
+    "demo": {
+      "status": 200,
+      "banner": true,
+      "reset": true,
+      "start": true,
+      "lines": 6,
+      "storage": {
+        "local": 0,
+        "session": 0,
+        "indexedDB": "object"
+      },
+      "cookies": 0,
+      "reducedMotionVisibleImmediately": 6,
+      "animationDuration": "1e-05s",
+      "swControlled": true,
+      "offlineReload": {
+        "url": "https://terminal-screenreader-mode.sociobot.in/demo",
+        "heading": "Turn noisy sample output into stable lines",
+        "error": null
+      }
+    },
+    "routeResults": [
+      {
+        "path": "/",
+        "status": 200,
+        "title": "Terminal Screenreader Mode — Stable CLI output",
+        "h1": [
+          "Read streaming commands without losing your place"
+        ],
+        "main": 1,
+        "lang": "en"
+      },
+      {
+        "path": "/demo",
+        "status": 200,
+        "title": "Demo — Terminal Screenreader Mode",
+        "h1": [
+          "Turn noisy sample output into stable lines"
+        ],
+        "main": 1,
+        "lang": "en"
+      },
+      {
+        "path": "/privacy",
+        "status": 200,
+        "title": "Privacy — Terminal Screenreader Mode",
+        "h1": [
+          "Your command output stays with you"
+        ],
+        "main": 1,
+        "lang": "en"
+      },
+      {
+        "path": "/terms",
+        "status": 200,
+        "title": "Terms — Terminal Screenreader Mode",
+        "h1": [
+          "Use the tool at your own pace"
+        ],
+        "main": 1,
+        "lang": "en"
+      },
+      {
+        "path": "/does-not-exist",
+        "status": 200,
+        "title": "Page not found — Terminal Screenreader Mode",
+        "h1": [
+          "This transcript has no matching line"
+        ],
+        "main": 1,
+        "lang": "en"
+      }
+    ],
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": [],
+    "outboundOrigins": [
+      "https://terminal-screenreader-mode.sociobot.in"
+    ]
+  }
+}

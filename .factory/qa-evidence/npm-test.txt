@@ -1,0 +1,156 @@
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-50446151c3822b40)
+
+running 8 tests
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::accepts_windows_line_endings ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-57f911d7a5825535)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-e47fb683a11eed69)
+
+running 3 tests
+test demo_creates_an_isolated_transcript ... ok
+test normalize_supports_json_lines ... ok
+test run_returns_the_wrapped_exit_code ... status  | Command finished without output
+ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.04s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CSYq6C1A.css  10.15 kB │ gzip: 2.96 kB
+../dist/site/assets/index-DtaGjaRs.js   12.95 kB │ gzip: 4.72 kB │ map: 20.05 kB
+✓ built in 215ms
+[1A[2K[2m[WebServer] [22m(node:4827) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 48 tests using 2 workers
+
+[1A[2K(node:4846) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:4847) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:4846) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:4847) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/48] [chromium] › site/tests/claims.spec.ts:9:1 › @claim:stable-rewrites emits only stable lines
+[1A[2K[2/48] [chromium] › site/tests/claims.spec.ts:18:1 › @claim:local-default makes no default file or browser storage
+[1A[2K[chromium] › site/tests/claims.spec.ts:9:1 › @claim:stable-rewrites emits only stable lines
+Demo transcript: /tmp/tsrm-demo-4868-1787933298588379084/transcript.txt
+
+[1A[2K[3/48] [chromium] › site/tests/claims.spec.ts:34:1 › @claim:ansi-links strips controls and exposes links
+[1A[2K[chromium] › site/tests/claims.spec.ts:34:1 › @claim:ansi-links strips controls and exposes links
+Demo transcript: /tmp/tsrm-demo-4873-1787933298693707327/transcript.txt
+
+[1A[2K[4/48] [chromium] › site/tests/claims.spec.ts:40:1 › @claim:json-lines emits parseable records
+[1A[2K[5/48] [chromium] › site/tests/claims.spec.ts:45:1 › @claim:exit-code returns the wrapped status
+[1A[2K[6/48] [chromium] › site/tests/claims.spec.ts:50:1 › @claim:unicode-safe keeps Unicode output
+[1A[2K[7/48] [chromium] › site/tests/claims.spec.ts:58:1 › @claim:semantic-labels labels headings and errors
+[1A[2K[8/48] [chromium] › site/tests/claims.spec.ts:64:1 › @claim:output-file saves the printed transcript when requested
+[1A[2K[9/48] [chromium] › site/tests/claims.spec.ts:72:1 › @claim:earcons-off keeps sounds opt-in
+[1A[2K[10/48] [chromium] › site/tests/claims.spec.ts:79:1 › @claim:timestamped adds UTC time by default
+[1A[2K[11/48] [chromium] › site/tests/claims.spec.ts:84:1 › @claim:demo-sandbox writes only to a temporary demo directory
+[1A[2K[12/48] [chromium] › site/tests/claims.spec.ts:91:1 › @claim:mit-free ships the MIT license
+[1A[2K[13/48] [chromium] › site/tests/claims.spec.ts:97:1 › @claim:offline-docs reloads the demo without a network
+[1A[2K[14/48] [chromium] › site/tests/claims.spec.ts:108:1 › @claim:keyboard-recording operates the sample with Enter
+[1A[2K[15/48] [chromium] › site/tests/site.spec.ts:7:3 › / has one accessible page heading and no serious axe issues
+[1A[2K[16/48] [chromium] › site/tests/site.spec.ts:7:3 › /demo has one accessible page heading and no serious axe issues
+[1A[2K[17/48] [chromium] › site/tests/site.spec.ts:7:3 › /privacy has one accessible page heading and no serious axe issues
+[1A[2K[18/48] [chromium] › site/tests/site.spec.ts:7:3 › /terms has one accessible page heading and no serious axe issues
+[1A[2K[19/48] [chromium] › site/tests/site.spec.ts:7:3 › /missing-page has one accessible page heading and no serious axe issues
+[1A[2K[20/48] [chromium] › site/tests/site.spec.ts:7:3 › /404.html has one accessible page heading and no serious axe issues
+[1A[2K[21/48] [chromium] › site/tests/site.spec.ts:20:1 › route navigation updates title, URL, and heading focus
+[1A[2K[22/48] [chromium] › site/tests/site.spec.ts:30:1 › mobile layout stays inside a 390 pixel viewport
+[1A[2K[23/48] [chromium] › site/tests/site.spec.ts:38:1 › production assets stay inside the stated budgets
+[1A[2K[24/48] [chromium] › site/tests/site.spec.ts:46:1 › static deployment includes routes and security policy
+[1A[2K(node:5172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:5180) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:5172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[25/48] [mobile] › site/tests/claims.spec.ts:9:1 › @claim:stable-rewrites emits only stable lines
+[1A[2K[mobile] › site/tests/claims.spec.ts:9:1 › @claim:stable-rewrites emits only stable lines
+Demo transcript: /tmp/tsrm-demo-5194-1787933317293204270/transcript.txt
+
+[1A[2K[26/48] [mobile] › site/tests/claims.spec.ts:34:1 › @claim:ansi-links strips controls and exposes links
+[1A[2K[mobile] › site/tests/claims.spec.ts:34:1 › @claim:ansi-links strips controls and exposes links
+Demo transcript: /tmp/tsrm-demo-5195-1787933317381727691/transcript.txt
+
+[1A[2K[27/48] [mobile] › site/tests/claims.spec.ts:40:1 › @claim:json-lines emits parseable records
+[1A[2K[28/48] [mobile] › site/tests/claims.spec.ts:45:1 › @claim:exit-code returns the wrapped status
+[1A[2K[29/48] [mobile] › site/tests/claims.spec.ts:50:1 › @claim:unicode-safe keeps Unicode output
+[1A[2K[30/48] [mobile] › site/tests/claims.spec.ts:58:1 › @claim:semantic-labels labels headings and errors
+[1A[2K[31/48] [mobile] › site/tests/claims.spec.ts:64:1 › @claim:output-file saves the printed transcript when requested
+[1A[2K(node:5180) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[32/48] [mobile] › site/tests/claims.spec.ts:72:1 › @claim:earcons-off keeps sounds opt-in
+[1A[2K[33/48] [mobile] › site/tests/claims.spec.ts:79:1 › @claim:timestamped adds UTC time by default
+[1A[2K[34/48] [mobile] › site/tests/claims.spec.ts:84:1 › @claim:demo-sandbox writes only to a temporary demo directory
+[1A[2K[35/48] [mobile] › site/tests/claims.spec.ts:91:1 › @claim:mit-free ships the MIT license
+[1A[2K[36/48] [mobile] › site/tests/claims.spec.ts:97:1 › @claim:offline-docs reloads the demo without a network
+[1A[2K[37/48] [mobile] › site/tests/claims.spec.ts:18:1 › @claim:local-default makes no default file or browser storage
+[1A[2K[38/48] [mobile] › site/tests/claims.spec.ts:108:1 › @claim:keyboard-recording operates the sample with Enter
+[1A[2K[39/48] [mobile] › site/tests/site.spec.ts:7:3 › / has one accessible page heading and no serious axe issues
+[1A[2K[40/48] [mobile] › site/tests/site.spec.ts:7:3 › /demo has one accessible page heading and no serious axe issues
+[1A[2K[41/48] [mobile] › site/tests/site.spec.ts:7:3 › /privacy has one accessible page heading and no serious axe issues
+[1A[2K[42/48] [mobile] › site/tests/site.spec.ts:7:3 › /terms has one accessible page heading and no serious axe issues
+[1A[2K[43/48] [mobile] › site/tests/site.spec.ts:7:3 › /missing-page has one accessible page heading and no serious axe issues
+[1A[2K[44/48] [mobile] › site/tests/site.spec.ts:7:3 › /404.html has one accessible page heading and no serious axe issues
+[1A[2K[45/48] [mobile] › site/tests/site.spec.ts:20:1 › route navigation updates title, URL, and heading focus
+[1A[2K[46/48] [mobile] › site/tests/site.spec.ts:30:1 › mobile layout stays inside a 390 pixel viewport
+[1A[2K[47/48] [mobile] › site/tests/site.spec.ts:38:1 › production assets stay inside the stated budgets
+[1A[2K[48/48] [mobile] › site/tests/site.spec.ts:46:1 › static deployment includes routes and security policy
+[1A[2K  1 skipped
+  47 passed (37.7s)

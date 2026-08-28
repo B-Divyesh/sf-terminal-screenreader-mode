@@ -1,0 +1,15 @@
+{
+  "h1Count": 0,
+  "body": "",
+  "errors": [
+    "Refused to apply style from 'https://terminal-screenreader-mode.sociobot.in/assets/index-CSYq6C1A.css' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled.",
+    "Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of \"text/html\". Strict MIME type checking is enforced for module scripts per HTML spec."
+  ],
+  "failed": [
+    {
+      "url": "https://terminal-screenreader-mode.sociobot.in/assets/index-CSYq6C1A.css",
+      "error": "net::ERR_ABORTED"
+    }
+  ],
+  "reloadError": null
+}

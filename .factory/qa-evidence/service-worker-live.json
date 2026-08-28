@@ -1,0 +1,24 @@
+{
+  "scope": "https://terminal-screenreader-mode.sociobot.in/",
+  "updateViaCache": "imports",
+  "active": {
+    "state": "activated",
+    "scriptURL": "https://terminal-screenreader-mode.sociobot.in/sw.js"
+  },
+  "waiting": false,
+  "installing": false,
+  "controller": true,
+  "caches": [
+    "tsrm-site-v1"
+  ],
+  "entries": {
+    "tsrm-site-v1": [
+      "/",
+      "/demo",
+      "/privacy",
+      "/terms",
+      "/favicon.svg",
+      "/assets/signal-recovery-640.webp"
+    ]
+  }
+}

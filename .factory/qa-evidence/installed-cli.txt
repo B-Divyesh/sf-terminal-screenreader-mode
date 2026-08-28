@@ -1,0 +1,70 @@
+=== VERSION ===
+tsrm 0.1.0
+rc=0
+=== HELP ===
+Turn changing terminal output into a stable transcript
+
+Usage: tsrm <COMMAND>
+
+Commands:
+  run        Wrap a command and print its stable transcript
+  normalize  Normalize terminal bytes read from standard input
+  demo       Run bundled noisy output in an isolated temporary directory
+  help       Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help     Print help
+  -V, --version  Print version
+rc=0
+=== DEMO ===
+text    | Starting accessible build
+heading | Build results
+text    | 18 checks passed
+text    | Report: https://example.test/build/42
+link    | https://example.test/build/42
+text    | Finished without errors
+Demo transcript: /tmp/tsrm-demo-6862-1787933474878191038/transcript.txt
+rc=0
+=== NORMAL UNICODE ANSI CR ===
+heading | 完成
+text    | Report https://example.test/a.
+link    | https://example.test/a
+rc=0
+=== EMPTY INPUT ===
+rc=0
+=== LONG LINE 1 MIB ===
+bytes=1048587, prefix=text    | xxxxxx
+rc=0
+=== INVALID UTF8 ===
+text    | ok�bad
+rc=0
+=== INVALID FLAG ===
+error: unexpected argument '--definitely-invalid' found
+
+Usage: tsrm normalize [OPTIONS]
+
+For more information, try '--help'.
+rc=2
+=== CONFLICT JSON/EARCONS ===
+error: the argument '--json' cannot be used with '--earcons'
+
+Usage: tsrm normalize --json
+
+For more information, try '--help'.
+rc=2
+=== MISSING COMMAND ===
+tsrm: could not start command: No such file or directory (os error 2)
+rc=2
+=== BAD OUTPUT PATH AND RECOVERY ===
+tsrm: could not create transcript at /tmp/tmp.lCC3OutGVT/no-such-dir/transcript: No such file or directory (os error 2)
+rc=2
+text    | Recovered
+rc=0
+=== WRAPPED STDOUT STDERR EXIT ===
+text    | out
+error   | Error: err
+rc=7
+=== JSON LINES ===
+{"kind":"heading","text":"Heading"}
+{"kind":"error","text":"Error: broken"}
+rc=0

@@ -1,0 +1,13 @@
+index.html                                 MATCH 2ae4302a54e4734fa92f23ae74fbb87284fde1b9730b3294642233efae465131
+assets/index-DtaGjaRs.js                   MATCH 101b280e253151950eddca9bdeb4c4bae46b81b43a8e778cfb0d826f89638202
+assets/index-CSYq6C1A.css                  MATCH 229abf105c5d65a47d0134944b6aec5aa64cb69a671560a52f34de7e06d3f013
+sw.js                                      MATCH 951067428c9c715d43e8262f9d55fce5715ab3b859dd2a37d75c01afb9006123
+staticwebapp.config.json                   MISMATCH local=13edb95797f807b8aef9150fca171dc3b281bb6a0be6fd81cc6ef978be1af1cf live=
+404.html                                   MATCH c41ac9dfc348792ef71a033454e1add7a5b6b09be152e5a35350269168dd4c19
+robots.txt                                 MATCH 7a7922d37a707c74858e1ff250196ca41fb3aa98bed26aae9805b48f39a149da
+sitemap.xml                                MATCH 57801b81570e71d08b9d98db3a26fe349488caf651d1c6941de61b01614544b6
+favicon.svg                                MATCH fd7c080837f68b2f98ec308bb31b7402e8a2f15bc9282b801d814f778ed1d633
+assets/signal-recovery.webp                MATCH 0e612144262956d81ed77b1d4aa532280b14cdfc49828f63ad6a534212c0330c
+assets/signal-recovery-640.webp            MATCH 4c524e03002034f10a518704f6a531b97dc4a1f4a4f658050f737abc6ea0e000
+assets/og-signal-recovery.webp             MATCH d701c21234e5631cf1960616fa480cc18c032368bf8ffac6a91e75e5b2a7b2ed
+assets/apple-touch-icon.png                MATCH 837f44d68a341b62a52085ab1528c8cb083fa9b798257a902f462240d5a1b386
