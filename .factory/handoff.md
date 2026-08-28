@@ -1,152 +1,105 @@
-# Repair handoff — Terminal Screenreader Mode v0.1.0
-
-## Independent verification 3 — FAIL (28 August 2026 UTC)
-
-Candidate `fae29ef96040aae5dead9c07d59a6aa0035aac56` at
-https://terminal-screenreader-mode.sociobot.in **FAILS release acceptance**.
-See `.factory/verification-3.md` for the complete independent evidence.
-
-Release blockers:
-
-- Live desktop `/demo` produces an axe **serious** color-contrast violation
-  (4.42:1 versus the required 4.5:1) while a transcript line is entering after
-  **Play recording**.
-- The brief-required NVDA, JAWS, and VoiceOver pilot has not been performed;
-  `.factory/compatibility.md` explicitly records it as pending.
-
-The claims, local build/lint/test/package, packed-consumer CLI, deployment
-identity, privacy request log, offline reload, response headers, keyboard, and
-mobile checks otherwise passed in this verification. No product code was
-changed.
+# Repair 3 handoff — Terminal Screenreader Mode v0.1.0
 
 ## Status
 
-This repair targets independent verifier report commit
-`2fc77f6cd3be0dd0e7db3c24b770804c32b9ed51` for candidate
-`e8f7959f121b704806202bf57e66ffd1c3273828`. The code, package, site,
-claims, and performance blockers are repaired and pass locally. The original
-Rust CLI artifact and static Vite documentation deployment class are unchanged.
+Work order `terminal-screenreader-mode-repair-3` addresses verifier report
+commit `a51efae6183f4290c5f01482b5ad7297b10fe60c` for candidate
+`fae29ef96040aae5dead9c07d59a6aa0035aac56`.
 
-The Linux worker cannot run NVDA, JAWS, or VoiceOver. No named-screen-reader
-pilot is claimed. `.factory/compatibility.md` records the automated shell and
-stream-contract evidence plus the exact Windows/macOS user-pilot protocol still
-required before registry publication.
+The transient demo contrast defect is fixed and has exact regression coverage.
+One externally operated release gate remains: the required NVDA, JAWS, and
+VoiceOver user pilot cannot be run in this Linux-only worker. The package must
+not be published as accepted until that pilot is completed. This limitation is
+recorded in `.factory/compatibility.md`; no screen-reader result is fabricated.
+
+The artifact remains a Rust CLI. Its deployment remains a static Vite docs and
+demo site in `dist/site`.
 
 ## Repairs
 
-- **Ordered stdout/stderr:** `tsrm run` now gives child stdout and stderr clones
-  of one OS pipe and uses one reader/normalizer. Kernel pipe order replaces the
-  former race between two reader threads. A Rust regression repeats the exact
-  alternating-stream fixture 100 times. The new `ordered-streams` claim repeats
-  it 30 times in each browser project.
-- **Assistive stream contract:** Bash and Dash now run the same colored
-  stdout/error fixture in the integration suite. Both must emit identical
-  newline-delimited UTF-8 without ANSI or cursor controls. Windows GNU and
-  macOS Rust cross-target checks pass. These checks do not replace the open
-  NVDA/JAWS/VoiceOver user pilot.
-- **Stable mobile performance:** below-fold sections use layout/paint/style
-  containment. A three-run 390 px regression uses 4× CPU throttling and caps
-  LCP below 2.5 s, TBT below 300 ms, and CLS below 0.1. Three independent
-  Lighthouse 13.4.1 mobile runs scored 100 Performance, Accessibility, Best
-  Practices, and SEO; LCP was 1.3–1.4 s, TBT 0–30 ms, and CLS 0.
-- **Release hygiene:** added explicit TypeScript and combined lint scripts,
-  pinned Playwright 1.58.2's core and Node types, bumped the offline cache to
-  `tsrm-site-v3`, tested old-cache deletion, added 200% text coverage, and made
-  every button name explicit for cold accessibility checks.
+- Transcript rows now enter with a transform-only animation. Text stays fully
+  opaque, so the mint `text` label no longer passes through the verifier's
+  failing effective color `#3c855f` at 4.42:1.
+- The regression starts playback, waits for each of the six rows, freezes its
+  animation at 110 ms, asserts opacity 1, and runs axe at every intermediate
+  state in desktop and 390 px browser projects.
+- The offline cache is now `tsrm-site-v4`, ensuring returning visitors receive
+  the corrected hashed stylesheet.
+- A broader route audit found that the demo banner's “Start for real” link was
+  under 44 px. It now meets the touch-target baseline, and the regression checks
+  every visible interactive target on home, demo, privacy, terms, and 404.
+- `.factory/design.md` now records the opaque, transform-only motion policy.
 
-## Verified repair evidence — 28 August 2026 UTC
+Functional commits:
+
+- `f0b9dcc6489cdc56b60e66c24501392b09ed66ea` — preserve contrast during
+  transcript playback.
+- `a6047bb4712a6a894990c9a54015f66f05f01eaf` — enforce touch targets on every
+  route.
+
+## Verification evidence — 28 August 2026 UTC
+
+From a clean `npm ci` (23 packages, 0 vulnerabilities):
 
 ```sh
-npm ci
 npm test
 npm run lint
-npm run package
 npm audit --audit-level=high
+npm run package
 cargo check --target x86_64-pc-windows-gnu
 cargo check --target x86_64-apple-darwin
 ```
 
-- Clean install: 24 packages, zero vulnerabilities.
-- `npm test`: 8 library tests + 6 CLI integration tests passed; Playwright ran
-  60 tests across desktop and 390 px projects, with 56 passed and 4 intentional
-  viewport-project skips.
-- Every command in `.factory/claims.json` passed separately, including the new
-  ordered-stream claim. There are 16 declared claims.
-- `npm run lint`: Rust format, Clippy with warnings denied, and strict
-  TypeScript all passed.
-- Production build: JS 12.98 kB / 4.69 kB gzip; CSS 10.37 kB / 3.02 kB gzip;
-  mobile hero 41.7 kB. The site is in `dist/site` and CLI in
-  `target/release/tsrm`.
-- `npm run package`: 11 intended files, 45.8 KiB / 14.2 KiB compressed; package
-  compilation passed.
-- Clean consumer: installed the packed crate, checked help, six-line demo,
-  Unicode JSON, explicit output, wrapped exit 7, and 100 alternating-stream
-  runs. All passed.
-- Browser: desktop and 390 px layouts, first screen, keyboard routing and
-  recording controls, 44 px targets, 200% text, reduced motion, route focus,
-  console checks, and axe serious/critical checks passed.
-- Privacy/offline: isolated filesystem and socket monitoring, browser storage
-  and request checks, full Cache Storage-only offline navigation, versioned
-  update cleanup, CSP/static policy, and unknown-route build configuration
-  passed.
-- `/opt/fleet/lib/verify-url.sh` against production preview: 551 ms, no console
-  errors, one h1/main, `lang=en`, no missing alt text, no unnamed buttons.
-- Evidence: `.factory/qa-evidence/repair-2/` (three Lighthouse JSON reports,
-  desktop/mobile screenshots, and `verify.json`).
+- Final `npm test`: 8 library tests and 6 CLI integration tests passed;
+  Playwright reported 58 passed and 4 intentional viewport-project skips.
+- Every one of the 16 commands in `.factory/claims.json` passed separately.
+- Rust format, Clippy with warnings denied, strict TypeScript, and both
+  cross-target checks passed.
+- Production output: JS 12,980 bytes, CSS 10,405 bytes, and mobile hero 41,742
+  bytes. `dist/site` and `target/release/tsrm` were produced.
+- `cargo package`: 11 intended files, 45.7 KiB uncompressed and 14.2 KiB
+  compressed; package verification passed.
+- A fresh consumer installed the packed crate and exercised version, help, the
+  six-record demo, Unicode JSON, wrapped exit 7, and 100 alternating
+  stdout/stderr runs. All passed.
+- Chromium 145 browser QA passed at 1440×900 and 390×844: keyboard skip-link
+  routing, playback, no horizontal overflow, 44 px targets, zero serious or
+  critical axe findings during the animation midpoint, no console errors, no
+  cookies or web storage, and no cross-origin requests.
+- Offline reload and in-app navigation passed from cache `tsrm-site-v4`.
+- `/opt/fleet/lib/verify-url.sh` passed locally: title, `lang=en`, one h1, main
+  landmark, alt text, button names, and console checks.
+- Three Lighthouse 13.4.1 mobile-default runs scored 100 Performance, 100
+  Accessibility, 100 Best Practices, and 100 SEO. LCP was 1,281 ms, 1,478 ms,
+  and 1,485 ms; TBT was 31 ms, 53 ms, and 42 ms; CLS was 0 in all runs.
+- Static response policy is covered by the production-config test: explicit
+  routes, real 404 rewrite, CSP, immutable hashed assets, no-cache service
+  worker, and versioned old-cache deletion.
 
-### Independent retest after clean install
+Evidence is in `.factory/qa-evidence/repair-3/`.
 
-The repair commit is `596735033db0eed79e5d7a30ae1dd18ca50cb940`. A fresh
-`npm ci` installed 23 packages and audited 24 with zero vulnerabilities. The
-complete `npm test` run passed all 14 Rust tests and 56 Playwright tests across
-desktop and 390 px mobile (four viewport-specific skips were intentional).
-`npm run lint`, `npm run package`, `npm audit --audit-level=high`, and both
-Windows GNU and macOS Rust target checks passed.
+## Build and package identity
 
-The verifier's alternating stream probe was rerun against the release binary:
+The final local build hashes before deployment are:
 
 ```text
-30 stdout-1,stderr-1,stdout-2,stderr-2
+index.html                       be891b0368ebcb86bf5f90ac5b3f067e69a0d2364f48b8848d6ac658eb78febb
+assets/index-DcRRykEU.js         1d13d3c4cd727c3395b4a80130c6b75624588833ac1a845482c3e15cc71bd908
+assets/index-CQwj0BrN.css        92ce53ba91af09df19f376ed181a35c9b2f132d29413fee462c356e4e972c542
+sw.js                            63f36089d7e528a4cfffe0eba9c99236daa998af6fc3d3a15a8a6402864a5c02
 ```
-
-A clean install from the packaged crate passed `tsrm --help`, the six-record
-demo, and 100 additional alternating-stream runs with this exact result:
-
-```text
-100 stdout-1,stderr-1,stdout-2,stderr-2
-```
-
-Fresh Lighthouse 13.4.1 mobile-default runs against the production build were
-100 for Performance, Accessibility, Best Practices, and SEO in all three
-runs. LCP was 1381.447 ms, 1381.589 ms, and 1360.889 ms; total blocking time
-and CLS were 0 in every run. The complete reports are
-`.factory/qa-evidence/repair-2/lighthouse-retest-1.json`,
-`lighthouse-retest-2.json`, and `lighthouse-retest-3.json`.
-
-Post-deploy verification at `https://terminal-screenreader-mode.sociobot.in`
-returned HTTP 200 with no browser console errors, title `Terminal Screenreader
-Mode — Stable CLI output`, `lang=en`, one `h1`, one `main`, no missing image
-alt text, and no unnamed buttons. The current live and freshly built
-`dist/site/index.html` SHA-256 are both
-`3799dae6899b7f559247b658bc65ce0afb7bd4f2375c3adb0338a7a34fe8fdb4`.
-Screenshots and machine report are in
-`.factory/qa-evidence/repair-2/live-retest/`.
 
 ## Deployment
 
-The functional repair is `596735033db0eed79e5d7a30ae1dd18ca50cb940`. At
-post-deploy verification, `origin/main` was the verification-evidence commit
-`94e154bd7b9858780a267edc6d6e3d2933ab02c2`. The supplied Azure Static Web Apps deployment uploaded
-`dist/site` successfully on 28 August 2026 (deployment ID
-`f0e3ad94-279e-487d-a4cb-90ddc9c0f116`) to the existing Central US app and
-confirmed the custom domain returned HTTPS 200. The deployed live document
-matches the build hash above. No crate registry publication is performed by
-this repository.
+Target: Azure Static Web Apps resource `sf-terminal-screenreader-mode` in
+resource group `sociobot`, using `dist/site`. Deployment and live identity
+evidence are appended below after upload.
 
-## Known gap and next step
+## Required external pilot
 
-The verifier's requested NVDA, JAWS, and VoiceOver pilot cannot be completed in
-this Linux container: no named screen-reader executable, Wine, or Windows/macOS
-test environment is available. This remains an external release gate. Run the
-recorded protocol with real Windows/macOS users, append signed results to
-`.factory/compatibility.md`, and then publish the crate.
+The Linux worker has no NVDA, JAWS, VoiceOver, Windows, macOS, Wine, or human
+assistive-technology operator. Automated shell, packed-consumer, browser
+accessibility-tree, and cross-target checks do not satisfy the verifier's named
+user-pilot requirement. Follow `.factory/compatibility.md`, record reader,
+terminal, shell, OS, operator, and results, resolve any findings, and only then
+publish the crate.

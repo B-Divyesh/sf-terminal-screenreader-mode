@@ -1,0 +1,49 @@
+{
+  "desktop": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "title": "Demo — Terminal Screenreader Mode",
+    "skipFocused": true,
+    "mainFocused": true,
+    "midpointOpacity": "1",
+    "axeSeriousCritical": [],
+    "undersizedTargets": [],
+    "overflow": 0,
+    "storage": {
+      "local": 0,
+      "session": 0
+    },
+    "cookies": 0,
+    "externalRequests": [],
+    "consoleErrors": []
+  },
+  "mobile": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "Demo — Terminal Screenreader Mode",
+    "skipFocused": true,
+    "mainFocused": true,
+    "midpointOpacity": "1",
+    "axeSeriousCritical": [],
+    "undersizedTargets": [],
+    "overflow": 0,
+    "storage": {
+      "local": 0,
+      "session": 0
+    },
+    "cookies": 0,
+    "externalRequests": [],
+    "consoleErrors": []
+  },
+  "offline": {
+    "cacheBefore": [
+      "tsrm-site-v4"
+    ],
+    "heading": "Your command output stays with you",
+    "url": "http://127.0.0.1:4173/privacy"
+  }
+}

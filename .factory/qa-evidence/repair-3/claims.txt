@@ -1,0 +1,1437 @@
+
+CLAIM stable-rewrites
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:stable-rewrites
+
+   Compiling terminal-screenreader-mode v0.1.0 (/work/repo)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.36s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_windows_line_endings ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test demo_creates_an_isolated_transcript ... ok
+test normalize_supports_json_lines ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.04s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.03s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 136ms
+[1A[2K[WebServer] (node:6632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:6663) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:6681) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:6687) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:6681) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:6687) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [chromium] › site/tests/claims.spec.ts:9:1 › @claim:stable-rewrites emits only stable lines
+[1A[2K[chromium] › site/tests/claims.spec.ts:9:1 › @claim:stable-rewrites emits only stable lines
+Demo transcript: /tmp/tsrm-demo-6703-1787944131381820635/transcript.txt
+
+[1A[2K[2/2] [mobile] › site/tests/claims.spec.ts:9:1 › @claim:stable-rewrites emits only stable lines
+[1A[2K[mobile] › site/tests/claims.spec.ts:9:1 › @claim:stable-rewrites emits only stable lines
+Demo transcript: /tmp/tsrm-demo-6708-1787944131468020871/transcript.txt
+
+[1A[2K  2 passed (2.7s)
+
+CLAIM local-default
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:local-default
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.07s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::accepts_windows_line_endings ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test normalize_supports_json_lines ... ok
+test demo_creates_an_isolated_transcript ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.03s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 131ms
+[1A[2K[WebServer] (node:7127) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:7159) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:7178) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:7177) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:7178) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:7177) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [mobile] › site/tests/claims.spec.ts:56:1 › @claim:local-default makes no default file, browser storage, or network request
+[1A[2K[2/2] [chromium] › site/tests/claims.spec.ts:56:1 › @claim:local-default makes no default file, browser storage, or network request
+[1A[2K  2 passed (4.7s)
+
+CLAIM ansi-links
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:ansi-links
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.06s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::accepts_windows_line_endings ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test demo_creates_an_isolated_transcript ... ok
+test normalize_supports_json_lines ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.02s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.08s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 139ms
+[1A[2K[WebServer] (node:7756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:7787) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:7806) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:7805) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:7806) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:7805) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [mobile] › site/tests/claims.spec.ts:79:1 › @claim:ansi-links strips controls and exposes links
+[1A[2K[2/2] [chromium] › site/tests/claims.spec.ts:79:1 › @claim:ansi-links strips controls and exposes links
+[1A[2K[chromium] › site/tests/claims.spec.ts:79:1 › @claim:ansi-links strips controls and exposes links
+Demo transcript: /tmp/tsrm-demo-7831-1787944146226561668/transcript.txt
+
+[1A[2K[mobile] › site/tests/claims.spec.ts:79:1 › @claim:ansi-links strips controls and exposes links
+Demo transcript: /tmp/tsrm-demo-7832-1787944146228967369/transcript.txt
+
+[1A[2K  2 passed (3.9s)
+
+CLAIM json-lines
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:json-lines
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::accepts_windows_line_endings ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test normalize_supports_json_lines ... ok
+test demo_creates_an_isolated_transcript ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.02s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.03s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 136ms
+[1A[2K[WebServer] (node:8251) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:8282) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:8300) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:8306) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:8300) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:8306) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [chromium] › site/tests/claims.spec.ts:85:1 › @claim:json-lines emits parseable records
+[1A[2K[2/2] [mobile] › site/tests/claims.spec.ts:85:1 › @claim:json-lines emits parseable records
+[1A[2K  2 passed (3.6s)
+
+CLAIM exit-code
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:exit-code
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::accepts_windows_line_endings ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test demo_creates_an_isolated_transcript ... ok
+test normalize_supports_json_lines ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.03s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 143ms
+[1A[2K[WebServer] (node:8765) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:8812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:8831) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:8830) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:8831) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:8830) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [chromium] › site/tests/claims.spec.ts:90:1 › @claim:exit-code returns the wrapped status
+[1A[2K[2/2] [mobile] › site/tests/claims.spec.ts:90:1 › @claim:exit-code returns the wrapped status
+[1A[2K  2 passed (2.7s)
+
+CLAIM ordered-streams
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:ordered-streams
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_windows_line_endings ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test normalize_supports_json_lines ... ok
+test demo_creates_an_isolated_transcript ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.02s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.04s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 127ms
+[1A[2K[WebServer] (node:9296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:9327) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:9345) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:9346) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:9345) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:9346) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [chromium] › site/tests/claims.spec.ts:95:1 › @claim:ordered-streams preserves alternating stdout and stderr writes
+[1A[2K[2/2] [mobile] › site/tests/claims.spec.ts:95:1 › @claim:ordered-streams preserves alternating stdout and stderr writes
+[1A[2K  2 passed (4.0s)
+
+CLAIM unicode-safe
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:unicode-safe
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_windows_line_endings ... ok
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test normalize_supports_json_lines ... ok
+test demo_creates_an_isolated_transcript ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.02s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.03s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 149ms
+[1A[2K[WebServer] (node:9988) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:10019) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:10038) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:10037) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:10038) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:10037) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [chromium] › site/tests/claims.spec.ts:107:1 › @claim:unicode-safe keeps Unicode output
+[1A[2K[2/2] [mobile] › site/tests/claims.spec.ts:107:1 › @claim:unicode-safe keeps Unicode output
+[1A[2K  2 passed (3.6s)
+
+CLAIM semantic-labels
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:semantic-labels
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::accepts_windows_line_endings ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test demo_creates_an_isolated_transcript ... ok
+test normalize_supports_json_lines ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.03s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 133ms
+[1A[2K[WebServer] (node:10485) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:10516) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:10535) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:10534) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:10535) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:10534) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [mobile] › site/tests/claims.spec.ts:115:1 › @claim:semantic-labels labels headings and errors
+[1A[2K[2/2] [chromium] › site/tests/claims.spec.ts:115:1 › @claim:semantic-labels labels headings and errors
+[1A[2K  2 passed (2.7s)
+
+CLAIM output-file
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:output-file
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_windows_line_endings ... ok
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test normalize_supports_json_lines ... ok
+test demo_creates_an_isolated_transcript ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.02s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.03s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 132ms
+[1A[2K[WebServer] (node:10980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:11012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:11030) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:11031) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:11030) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:11031) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [chromium] › site/tests/claims.spec.ts:121:1 › @claim:output-file saves the printed transcript when requested
+[1A[2K[2/2] [mobile] › site/tests/claims.spec.ts:121:1 › @claim:output-file saves the printed transcript when requested
+[1A[2K  2 passed (3.7s)
+
+CLAIM earcons-off
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:earcons-off
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::accepts_windows_line_endings ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test normalize_supports_json_lines ... ok
+test demo_creates_an_isolated_transcript ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.02s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.03s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 128ms
+[1A[2K[WebServer] (node:11476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:11507) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:11525) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:11526) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:11525) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:11526) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [chromium] › site/tests/claims.spec.ts:129:1 › @claim:earcons-off keeps sounds opt-in
+[1A[2K[2/2] [mobile] › site/tests/claims.spec.ts:129:1 › @claim:earcons-off keeps sounds opt-in
+[1A[2K  2 passed (2.7s)
+
+CLAIM timestamped
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:timestamped
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::accepts_windows_line_endings ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test normalize_supports_json_lines ... ok
+test demo_creates_an_isolated_transcript ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.02s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.03s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 136ms
+[1A[2K[WebServer] (node:11973) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:12004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:12022) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:12024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:12024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:12022) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [mobile] › site/tests/claims.spec.ts:136:1 › @claim:timestamped adds UTC time by default
+[1A[2K[2/2] [chromium] › site/tests/claims.spec.ts:136:1 › @claim:timestamped adds UTC time by default
+[1A[2K  2 passed (3.7s)
+
+CLAIM demo-sandbox
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:demo-sandbox
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::accepts_windows_line_endings ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test normalize_supports_json_lines ... ok
+test demo_creates_an_isolated_transcript ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.03s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 176ms
+[1A[2K[WebServer] (node:12487) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:12518) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:12537) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:12538) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:12537) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:12538) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [chromium] › site/tests/claims.spec.ts:141:1 › @claim:demo-sandbox writes only one transcript in its temporary demo directory
+[1A[2K[2/2] [mobile] › site/tests/claims.spec.ts:141:1 › @claim:demo-sandbox writes only one transcript in its temporary demo directory
+[1A[2K  2 passed (3.7s)
+
+CLAIM mit-free
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:mit-free
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::accepts_windows_line_endings ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test normalize_supports_json_lines ... ok
+test demo_creates_an_isolated_transcript ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.03s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 129ms
+[1A[2K[WebServer] (node:12983) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:13014) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:13032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:13033) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:13033) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:13032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [chromium] › site/tests/claims.spec.ts:157:1 › @claim:mit-free ships the MIT license
+[1A[2K[2/2] [mobile] › site/tests/claims.spec.ts:157:1 › @claim:mit-free ships the MIT license
+[1A[2K  2 passed (2.7s)
+
+CLAIM offline-docs
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:offline-docs
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::accepts_windows_line_endings ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test normalize_supports_json_lines ... ok
+test demo_creates_an_isolated_transcript ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.04s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 131ms
+[1A[2K[WebServer] (node:13476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:13508) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:13527) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:13526) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:13526) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:13527) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [chromium] › site/tests/claims.spec.ts:163:1 › @claim:offline-docs reloads the demo without a network
+[1A[2K[2/2] [mobile] › site/tests/claims.spec.ts:163:1 › @claim:offline-docs reloads the demo without a network
+[1A[2K  2 passed (5.0s)
+
+CLAIM keyboard-recording
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:keyboard-recording
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::accepts_windows_line_endings ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test normalize_supports_json_lines ... ok
+test demo_creates_an_isolated_transcript ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.03s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 164ms
+[1A[2K[WebServer] (node:14090) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:14121) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:14139) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:14140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:14139) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:14140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [chromium] › site/tests/claims.spec.ts:186:1 › @claim:keyboard-recording operates the sample with Enter
+[1A[2K[2/2] [mobile] › site/tests/claims.spec.ts:186:1 › @claim:keyboard-recording operates the sample with Enter
+[1A[2K  2 passed (4.8s)
+
+CLAIM rust-version
+
+> terminal-screenreader-mode-site@0.1.0 test
+> cargo test && npm run build && playwright test --grep @claim:rust-version
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/terminal_screenreader_mode-d82d72589f5eb190)
+
+running 8 tests
+test tests::accepts_chunks_in_the_middle_of_escape_sequences ... ok
+test tests::accepts_windows_line_endings ... ok
+test tests::keeps_only_the_final_rewritten_line ... ok
+test tests::exposes_osc_eight_links ... ok
+test tests::labels_headings_errors_and_links ... ok
+test tests::preserves_repeated_complete_lines_and_multiple_links ... ok
+test tests::removes_a_line_rewritten_with_cursor_up ... ok
+test tests::strips_ansi_and_preserves_unicode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tsrm-06d314f51ec6f444)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-23465dbf3b1d4dd8)
+
+running 6 tests
+test normalize_supports_json_lines ... ok
+test demo_creates_an_isolated_transcript ... ok
+test run_produces_the_same_linear_output_in_common_shells ... ok
+test run_preserves_alternating_stdout_stderr_write_order ... ok
+status  | Command finished without output
+test run_returns_the_wrapped_exit_code ... ok
+test run_releases_a_complete_line_before_a_quiet_child_writes_again ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+
+   Doc-tests terminal_screenreader_mode
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+> terminal-screenreader-mode-site@0.1.0 build
+> cargo build --release && vite build --config site/vite.config.ts
+
+    Finished `release` profile [optimized] target(s) in 0.03s
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/.vite/manifest.json         0.19 kB │ gzip: 0.14 kB
+../dist/site/index.html                  1.96 kB │ gzip: 0.66 kB
+../dist/site/assets/index-CqqdSLvi.css  10.35 kB │ gzip: 3.01 kB
+../dist/site/assets/index-DHaaHMy8.js   12.98 kB │ gzip: 4.69 kB │ map: 20.08 kB
+✓ built in 134ms
+[1A[2K[WebServer] (node:14713) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:14745) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 2 workers
+
+[1A[2K(node:14764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:14763) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:14764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:14763) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/2] [mobile] › site/tests/claims.spec.ts:180:1 › @claim:rust-version declares the documented Rust 1.85 minimum
+[1A[2K[2/2] [chromium] › site/tests/claims.spec.ts:180:1 › @claim:rust-version declares the documented Rust 1.85 minimum
+[1A[2K  2 passed (3.7s)

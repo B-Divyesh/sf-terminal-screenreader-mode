@@ -19,10 +19,17 @@ They do not substitute for a user pilot with a speech engine.
 
 ## Named screen-reader pilot status
 
-NVDA, JAWS, and VoiceOver cannot run in this Linux worker. No user pilot was
-performed, and this record does not claim otherwise. Before publishing the CLI
-package, run the following protocol on Windows and macOS with the release
-binary from the packed crate:
+Repair work order `terminal-screenreader-mode-repair-3` rechecked the execution
+environment on 28 August 2026. The only available host is Linux 6.6 x86_64.
+There is no NVDA executable, JAWS installation, VoiceOver/`osascript`, Wine, or
+Windows PowerShell runtime. Cross-compilation checks pass for
+`x86_64-pc-windows-gnu` and `x86_64-apple-darwin`, but they cannot exercise a
+speech engine.
+
+No user pilot was performed, and this record does not claim otherwise. This is
+still a release blocker from independent verification 3. Before publishing the
+CLI package, an operator with the named operating systems and assistive
+technology must run this protocol against the packed release binary:
 
 1. Run `tsrm demo --no-timestamps` in PowerShell, Command Prompt, and Terminal.
 2. Read continuously with NVDA, JAWS, then VoiceOver.

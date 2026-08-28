@@ -1,0 +1,10 @@
+
+> terminal-screenreader-mode-site@0.1.0 package
+> cargo package --allow-dirty
+
+   Packaging terminal-screenreader-mode v0.1.0 (/work/repo)
+    Updating crates.io index
+    Packaged 11 files, 45.7KiB (14.2KiB compressed)
+   Verifying terminal-screenreader-mode v0.1.0 (/work/repo)
+   Compiling terminal-screenreader-mode v0.1.0 (/work/repo/target/package/terminal-screenreader-mode-0.1.0)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.39s
