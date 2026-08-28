@@ -103,37 +103,45 @@ test("production assets stay inside the stated budgets", async () => {
   expect(statSync(resolve("dist/site/assets/signal-recovery-640.webp")).size).toBeLessThan(300 * 1024);
 });
 
-test("mobile rendering stays inside Lighthouse-class responsiveness budgets", async ({ page }, testInfo) => {
+test("mobile rendering stays inside Lighthouse-class responsiveness budgets", async ({ browser }, testInfo) => {
   test.skip(testInfo.project.name !== "chromium", "one Chromium performance project only");
-  await page.setViewportSize({ width: 390, height: 844 });
-  const session = await page.context().newCDPSession(page);
-  await session.send("Emulation.setCPUThrottlingRate", { rate: 4 });
-  await page.addInitScript(() => {
-    const measurements = { blockingTime: 0, lcp: 0, cls: 0 };
-    (window as typeof window & { __renderMetrics: typeof measurements }).__renderMetrics = measurements;
-    new PerformanceObserver((list) => {
-      for (const entry of list.getEntries()) measurements.blockingTime += Math.max(0, entry.duration - 50);
-    }).observe({ type: "longtask", buffered: true });
-    new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      measurements.lcp = entries.at(-1)?.startTime ?? measurements.lcp;
-    }).observe({ type: "largest-contentful-paint", buffered: true });
-    new PerformanceObserver((list) => {
-      for (const entry of list.getEntries() as (PerformanceEntry & { hadRecentInput: boolean; value: number })[]) {
-        if (!entry.hadRecentInput) measurements.cls += entry.value;
-      }
-    }).observe({ type: "layout-shift", buffered: true });
-  });
 
   for (let run = 1; run <= 3; run += 1) {
-    await page.goto("/", { waitUntil: "load" });
-    await page.waitForTimeout(1_500);
-    const metrics = await page.evaluate(() => (window as typeof window & {
-      __renderMetrics: { blockingTime: number; lcp: number; cls: number };
-    }).__renderMetrics);
-    expect(metrics.lcp, `run ${run} LCP`).toBeLessThan(2_500);
-    expect(metrics.blockingTime, `run ${run} total blocking time`).toBeLessThan(300);
-    expect(metrics.cls, `run ${run} cumulative layout shift`).toBeLessThan(0.1);
+    // A new context means each sample is a cold mobile visit. It also keeps
+    // service-worker/cache state and prior navigation observers out of TBT.
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
+    const page = await context.newPage();
+    try {
+      const session = await context.newCDPSession(page);
+      await session.send("Emulation.setCPUThrottlingRate", { rate: 4 });
+      await page.addInitScript(() => {
+        const measurements = { blockingTime: 0, lcp: 0, cls: 0 };
+        (window as typeof window & { __renderMetrics: typeof measurements }).__renderMetrics = measurements;
+        new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) measurements.blockingTime += Math.max(0, entry.duration - 50);
+        }).observe({ type: "longtask", buffered: true });
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          measurements.lcp = entries.at(-1)?.startTime ?? measurements.lcp;
+        }).observe({ type: "largest-contentful-paint", buffered: true });
+        new PerformanceObserver((list) => {
+          for (const entry of list.getEntries() as (PerformanceEntry & { hadRecentInput: boolean; value: number })[]) {
+            if (!entry.hadRecentInput) measurements.cls += entry.value;
+          }
+        }).observe({ type: "layout-shift", buffered: true });
+      });
+
+      await page.goto("/", { waitUntil: "load" });
+      await page.waitForTimeout(1_500);
+      const metrics = await page.evaluate(() => (window as typeof window & {
+        __renderMetrics: { blockingTime: number; lcp: number; cls: number };
+      }).__renderMetrics);
+      expect(metrics.lcp, `run ${run} LCP`).toBeLessThan(2_500);
+      expect(metrics.blockingTime, `run ${run} total blocking time`).toBeLessThan(300);
+      expect(metrics.cls, `run ${run} cumulative layout shift`).toBeLessThan(0.1);
+    } finally {
+      await context.close();
+    }
   }
 });
 

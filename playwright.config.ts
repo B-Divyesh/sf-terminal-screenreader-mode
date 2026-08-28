@@ -2,6 +2,10 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./site/tests",
+  // CPU-throttled responsiveness measurements need an uncontended renderer.
+  // Running them beside axe scans or another throttled Chromium makes TBT a
+  // measurement of the test host scheduler rather than the production page.
+  workers: 1,
   fullyParallel: true,
   forbidOnly: true,
   retries: 0,
