@@ -38,7 +38,8 @@ Each stable line is printed once with a UTC timestamp and a plain type label. Ca
 12:04:08Z | link    | https://example.test/report
 ```
 
-The wrapper returns the command's exit code. It writes no transcript file by default.
+The wrapper keeps stdout and stderr records in command write order. It returns
+the command's exit code and writes no transcript file by default.
 
 ### Useful options
 
@@ -74,8 +75,9 @@ This is a normalization layer, not a terminal emulator or speech engine. Full-sc
 
 ```sh
 cargo test
-npm install
+npm ci
 npm test
+npm run lint
 npm run build
 ```
 

@@ -171,70 +171,59 @@ fn normalize_bytes(bytes: &[u8], options: OutputArgs) -> io::Result<usize> {
 
 fn run_command(args: RunArgs) -> Result<i32, Box<dyn std::error::Error>> {
     let executable = args.command.first().ok_or("no command supplied")?;
+    // Give stdout and stderr clones of the same OS pipe. A single pipe retains
+    // the order in which the child writes records; separate reader threads can
+    // race and invert an earlier stdout write with a later stderr write.
+    let (mut output_reader, output_writer) = os_pipe::pipe()?;
+    let stderr_writer = output_writer.try_clone()?;
     let mut child = Command::new(executable)
         .args(&args.command[1..])
         .stdin(Stdio::inherit())
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
+        .stdout(Stdio::from(output_writer))
+        .stderr(Stdio::from(stderr_writer))
         .spawn()
         .map_err(|error| format!("could not start command: {error}"))?;
 
-    let stdout = child.stdout.take().expect("piped stdout");
-    let stderr = child.stderr.take().expect("piped stderr");
     enum StreamEvent {
-        Data(usize, Vec<u8>),
+        Data(Vec<u8>),
         Done,
     }
     let (sender, receiver) = mpsc::channel::<StreamEvent>();
-    for (stream_id, mut stream) in [Box::new(stdout) as Box<dyn Read + Send>, Box::new(stderr)]
-        .into_iter()
-        .enumerate()
-    {
-        let sender = sender.clone();
-        thread::spawn(move || {
-            let mut buffer = [0_u8; 4096];
-            loop {
-                match stream.read(&mut buffer) {
-                    Ok(0) | Err(_) => break,
-                    Ok(length) => {
-                        if sender
-                            .send(StreamEvent::Data(stream_id, buffer[..length].to_vec()))
-                            .is_err()
-                        {
-                            return;
-                        }
+    thread::spawn(move || {
+        let mut buffer = [0_u8; 4096];
+        loop {
+            match output_reader.read(&mut buffer) {
+                Ok(0) | Err(_) => break,
+                Ok(length) => {
+                    if sender
+                        .send(StreamEvent::Data(buffer[..length].to_vec()))
+                        .is_err()
+                    {
+                        return;
                     }
                 }
             }
-            let _ = sender.send(StreamEvent::Done);
-        });
-    }
-    drop(sender);
+        }
+        let _ = sender.send(StreamEvent::Done);
+    });
 
     let mut writer = TranscriptWriter::new(args.output_args)?;
-    let mut normalizers = [Normalizer::default(), Normalizer::default()];
-    let mut finished_streams = 0;
+    let mut normalizer = Normalizer::default();
     // A completed line gets a short chance to be replaced by an immediate
     // carriage-return/cursor update.  The timeout keeps quiet, long-running
     // commands from holding an already complete line until their next write.
     const STABILIZATION_WINDOW: Duration = Duration::from_millis(100);
-    while finished_streams < 2 {
+    loop {
         match receiver.recv_timeout(STABILIZATION_WINDOW) {
-            Ok(StreamEvent::Data(stream_id, bytes)) => {
-                writer.emit_many(normalizers[stream_id].feed(&bytes))?
-            }
-            Ok(StreamEvent::Done) => finished_streams += 1,
+            Ok(StreamEvent::Data(bytes)) => writer.emit_many(normalizer.feed(&bytes))?,
+            Ok(StreamEvent::Done) => break,
             Err(mpsc::RecvTimeoutError::Timeout) => {
-                for normalizer in &mut normalizers {
-                    writer.emit_many(normalizer.stabilize())?;
-                }
+                writer.emit_many(normalizer.stabilize())?;
             }
             Err(mpsc::RecvTimeoutError::Disconnected) => break,
         }
     }
-    for normalizer in &mut normalizers {
-        writer.emit_many(normalizer.finish())?;
-    }
+    writer.emit_many(normalizer.finish())?;
     let status = child.wait()?;
     if writer.count == 0 {
         writer.emit(&Record {

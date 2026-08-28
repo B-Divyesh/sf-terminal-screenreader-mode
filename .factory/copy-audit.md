@@ -43,7 +43,8 @@ Audited 28 August 2026 against the `plain-words` skill. Counts treat a command, 
 | ANSI controls disappear. | 3 | Pass |
 | Carriage returns replace the pending row. | 6 | Pass |
 | Read stable records | 3 | Pass |
-| Headings, errors, and links receive plain labels in the transcript. | 10 | Pass |
+| Stdout and stderr stay in write order. | 7 | Pass |
+| Headings, errors, and links receive plain labels. | 7 | Pass |
 
 ## Install and boundaries
 
@@ -57,7 +58,7 @@ Audited 28 August 2026 against the `plain-words` skill. Counts treat a command, 
 | tsrm does not speak, emulate a terminal, or send output to a server. | 13 | Pass |
 | Full-screen interactive apps may not produce a useful linear transcript. | 10 | Pass |
 | Use their own accessibility mode when available. | 7 | Pass |
-| Compatibility pilots with NVDA, JAWS, and VoiceOver are the next release gate. | 12 | Pass |
+| Output is line-based UTF-8 text without ANSI styling or cursor controls. | 11 | Pass |
 | Stable terminal output for screen-reader users. | 6 | Pass |
 
 ## Conditional feedback

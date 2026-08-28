@@ -10,7 +10,7 @@ function offlineShellPlugin() {
     closeBundle() {
       const indexPath = join(outDir, "index.html");
       const index = readFileSync(indexPath, "utf8");
-      const assetPaths = [...index.matchAll(/(?:src|href)="(\/assets\/[^"?]+)[^\"]*"/g)].map((match) => match[1]);
+      const assetPaths = [...index.matchAll(/(?:src|href)="(\/assets\/[^"?]+)[^"]*"/g)].map((match) => match[1]);
       const core = [
         "/",
         "/demo",
@@ -24,8 +24,12 @@ function offlineShellPlugin() {
         ...assetPaths,
       ];
       const uniqueCore = [...new Set(core)];
-      const worker = `const CACHE = "tsrm-site-v2";\nconst CORE = ${JSON.stringify(uniqueCore)};\n\nself.addEventListener("install", (event) => {\n  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE)));\n  self.skipWaiting();\n});\n\nself.addEventListener("activate", (event) => {\n  event.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key)))));\n  self.clients.claim();\n});\n\nself.addEventListener("fetch", (event) => {\n  if (event.request.method !== "GET" || new URL(event.request.url).origin !== self.location.origin) return;\n  event.respondWith((async () => {\n    const cached = await caches.match(event.request, { ignoreVary: true });\n    if (cached) return cached;\n    try { return await fetch(event.request); } catch {\n      return event.request.mode === "navigate" ? (await caches.match("/", { ignoreVary: true })) || Response.error() : Response.error();\n    }\n  })());\n});\n`;
+      const workerTemplate = readFileSync(resolve(__dirname, "public/sw.js"), "utf8");
+      const worker = workerTemplate
+        .replace('const CACHE = "tsrm-site-dev-v3";', 'const CACHE = "tsrm-site-v3";')
+        .replace('const CORE = ["/", "/demo", "/privacy", "/terms", "/favicon.svg"];', `const CORE = ${JSON.stringify(uniqueCore)};`);
       writeFileSync(join(outDir, "sw.js"), worker);
+
       const titles: Record<string, string> = {
         demo: "Demo — Terminal Screenreader Mode",
         privacy: "Privacy — Terminal Screenreader Mode",

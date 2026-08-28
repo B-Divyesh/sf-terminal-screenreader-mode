@@ -1,6 +1,6 @@
 // `vite build` replaces this development fallback with a generated worker
 // that contains the exact hashed JS and CSS files for the release.
-const CACHE = "tsrm-site-dev-v2";
+const CACHE = "tsrm-site-dev-v3";
 const CORE = ["/", "/demo", "/privacy", "/terms", "/favicon.svg"];
 
 self.addEventListener("install", (event) => {

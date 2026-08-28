@@ -88,3 +88,55 @@ fn run_releases_a_complete_line_before_a_quiet_child_writes_again() {
     assert!(remaining.contains("text    | phase two"));
     assert!(child.wait().expect("wrapper exits").success());
 }
+
+#[test]
+fn run_preserves_alternating_stdout_stderr_write_order() {
+    let expected = ["stdout-1", "stderr-1", "stdout-2", "stderr-2"];
+    for attempt in 1..=100 {
+        let output = Command::new(binary())
+            .args([
+                "run",
+                "--no-timestamps",
+                "--",
+                "sh",
+                "-c",
+                "printf 'stdout-1\\n'; printf 'stderr-1\\n' >&2; printf 'stdout-2\\n'; printf 'stderr-2\\n' >&2",
+            ])
+            .output()
+            .expect("wrapper runs");
+        assert!(output.status.success());
+        let transcript = String::from_utf8(output.stdout).expect("transcript is UTF-8");
+        let records = transcript
+            .lines()
+            .map(|line| line.split_once(" | ").expect("label separator").1)
+            .collect::<Vec<_>>();
+        assert_eq!(records, expected, "ordering changed on attempt {attempt}");
+    }
+}
+
+#[cfg(unix)]
+#[test]
+fn run_produces_the_same_linear_output_in_common_shells() {
+    for shell in ["/bin/bash", "/bin/dash"] {
+        if !std::path::Path::new(shell).exists() {
+            continue;
+        }
+        let output = Command::new(shell)
+            .args([
+                "-c",
+                &format!(
+                    "\"{}\" run --no-timestamps -- sh -c \
+                     'printf \"\\033[32mready\\033[0m\\n\"; printf \"Error: failed\\n\" >&2'",
+                    binary()
+                ),
+            ])
+            .output()
+            .expect("shell starts");
+        assert!(output.status.success(), "{shell} failed");
+        assert_eq!(
+            String::from_utf8(output.stdout).expect("UTF-8 transcript"),
+            "text    | ready\nerror   | Error: failed\n",
+            "unexpected transcript in {shell}"
+        );
+    }
+}

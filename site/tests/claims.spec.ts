@@ -92,6 +92,18 @@ test("@claim:exit-code returns the wrapped status", async () => {
   expect(result.status).toBe(7);
 });
 
+test("@claim:ordered-streams preserves alternating stdout and stderr writes", async () => {
+  const expected = ["stdout-1", "stderr-1", "stdout-2", "stderr-2"];
+  for (let attempt = 1; attempt <= 30; attempt += 1) {
+    const result = spawnSync(binary, [
+      "run", "--no-timestamps", "--", "sh", "-c",
+      "printf 'stdout-1\\n'; printf 'stderr-1\\n' >&2; printf 'stdout-2\\n'; printf 'stderr-2\\n' >&2",
+    ], { encoding: "utf8" });
+    expect(result.status, `attempt ${attempt}: ${result.stderr}`).toBe(0);
+    expect(result.stdout.trim().split("\n").map((line) => line.split(" | ")[1])).toEqual(expected);
+  }
+});
+
 test("@claim:unicode-safe keeps Unicode output", async () => {
   const result = spawnSync(binary, ["normalize", "--no-timestamps"], { input: "完成 ✓\n", encoding: "utf8" });
   expect(result.stdout).toContain("完成 ✓");

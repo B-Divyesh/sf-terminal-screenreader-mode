@@ -10,11 +10,15 @@
     "build:site": "vite build --config site/vite.config.ts",
     "test": "cargo test && npm run build && playwright test",
     "package": "cargo package --allow-dirty",
-    "test:site": "playwright test"
+    "test:site": "playwright test",
+    "typecheck": "tsc --noEmit",
+    "lint": "cargo fmt --all -- --check && cargo clippy --all-targets --all-features -- -D warnings && npm run typecheck"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.10.2",
     "@playwright/test": "1.58.2",
+    "@types/node": "22.20.1",
+    "playwright-core": "1.58.2",
     "typescript": "5.9.2",
     "vite": "7.3.6"
   }

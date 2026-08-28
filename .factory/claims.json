@@ -35,6 +35,13 @@
     "sandbox": "wrapped shell command that exits with status 7"
   },
   {
+    "id": "ordered-streams",
+    "claim": "Keeps stdout and stderr records in the order the wrapped command writes them.",
+    "where": "README, how it works",
+    "test": "npm test -- --grep @claim:ordered-streams",
+    "sandbox": "release CLI wraps a command that alternates stdout and stderr writes; repeat 30 times and compare every record"
+  },
+  {
     "id": "unicode-safe",
     "claim": "Keeps valid Unicode intact and replaces invalid UTF-8 without crashing.",
     "where": "README",

@@ -44,7 +44,7 @@ function shell(content: string, demo = false): string {
         <a href="/terms" data-route>Terms</a>
         <a href="https://hello-factory.sociobot.in">Built by Param Factory <span class="sr-only">(external site)</span></a>
       </div>
-      <p class="build-id">v0.1.0 · build 1</p>
+      <p class="build-id">v0.1.0 · build 2</p>
     </footer>
     <div class="route-status sr-only" aria-live="polite"></div>`;
 }
@@ -52,7 +52,7 @@ function shell(content: string, demo = false): string {
 function demoBanner(): string {
   return `<aside class="demo-banner" aria-label="Demo status">
     <span><strong>Demo</strong> — sample data, nothing is saved</span>
-    <div><button type="button" data-action="reset-demo">Reset demo</button><a href="/#install" data-route>Start for real</a></div>
+    <div><button type="button" data-action="reset-demo" aria-label="Reset demo">Reset demo</button><a href="/#install" data-route>Start for real</a></div>
   </aside>`;
 }
 
@@ -64,9 +64,9 @@ function terminalRecording(showAll: boolean, homePreview = false): string {
   return `<div class="terminal-block ${homePreview ? "home-terminal" : ""}" data-recording>
     <div class="terminal-topline"><span>tsrm demo --no-timestamps</span><span aria-label="Local process">LOCAL / 6 LINES</span></div>
     <div class="terminal-controls" aria-label="Recording controls">
-      <button type="button" data-action="play">Play recording</button>
-      <button type="button" data-action="pause">Pause</button>
-      <button type="button" data-action="reset-output">Clear output</button>
+      <button type="button" data-action="play" aria-label="Play recording">Play recording</button>
+      <button type="button" data-action="pause" aria-label="Pause recording">Pause</button>
+      <button type="button" data-action="reset-output" aria-label="Clear output">Clear output</button>
     </div>
     <ol class="transcript" tabindex="0" aria-label="Stable sample transcript" aria-live="polite">${lines}</ol>
     <p class="empty-output" ${showAll ? "hidden" : ""}>The stable transcript will appear here. Select Play recording.</p>
@@ -102,20 +102,20 @@ function homePage(): string {
       <ol class="steps">
         <li><span class="step-number">01</span><div><h3>Wrap your command</h3><p>Place <code>tsrm run --</code> before the command you already use.</p></div></li>
         <li><span class="step-number">02</span><div><h3>Replace volatile rows</h3><p>ANSI controls disappear. Carriage returns replace the pending row.</p></div></li>
-        <li><span class="step-number">03</span><div><h3>Read stable records</h3><p>Headings, errors, and links receive plain labels in the transcript.</p></div></li>
+        <li><span class="step-number">03</span><div><h3>Read stable records</h3><p>Stdout and stderr stay in write order. Headings, errors, and links receive plain labels.</p></div></li>
       </ol>
     </section>
     <section class="install" id="install" aria-labelledby="install-heading">
       <div class="section-label"><span>03</span><h2 id="install-heading">Install the local CLI</h2></div>
       <div class="install-grid">
         <div><p>Build with Rust 1.85 or newer.</p><a class="text-link" href="https://github.com/B-Divyesh/sf-terminal-screenreader-mode">Read the source on GitHub <span class="sr-only">(external site)</span></a></div>
-        <div class="command-box"><code aria-label="Install command">cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode</code><button type="button" data-copy="cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode">Copy install command</button></div>
+        <div class="command-box"><code aria-label="Install command">cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode</code><button type="button" aria-label="Copy install command" data-copy="cargo install --git https://github.com/B-Divyesh/sf-terminal-screenreader-mode">Copy install command</button></div>
       </div>
       <p class="copy-status" role="status" aria-live="polite"></p>
     </section>
     <section class="boundaries" aria-labelledby="boundaries-heading">
       <div class="section-label"><span>04</span><h2 id="boundaries-heading">What stays outside the tool</h2></div>
-      <div class="boundary-copy"><p>tsrm does not speak, emulate a terminal, or send output to a server.</p><p>Full-screen interactive apps may not produce a useful linear transcript. Use their own accessibility mode when available.</p><p>Compatibility pilots with NVDA, JAWS, and VoiceOver are the next release gate.</p></div>
+      <div class="boundary-copy"><p>tsrm does not speak, emulate a terminal, or send output to a server.</p><p>Full-screen interactive apps may not produce a useful linear transcript. Use their own accessibility mode when available.</p><p>Output is line-based UTF-8 text without ANSI styling or cursor controls.</p></div>
     </section>
   </main>`);
 }
