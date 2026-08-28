@@ -1,0 +1,79 @@
+[
+  {
+    "id": "stable-rewrites",
+    "claim": "Turns changing terminal output into stable lines and removes rewritten spinner frames.",
+    "where": "landing headline, demo, README",
+    "test": "npm test -- --grep @claim:stable-rewrites",
+    "sandbox": "bundled examples/noisy-build.events through the release CLI"
+  },
+  {
+    "id": "local-default",
+    "claim": "Runs locally, makes no network request, and saves nothing by default.",
+    "where": "landing facts, privacy, README",
+    "test": "npm test -- --grep @claim:local-default",
+    "sandbox": "fresh temporary directory and fresh browser context"
+  },
+  {
+    "id": "ansi-links",
+    "claim": "Removes ANSI controls and exposes web links as separate records.",
+    "where": "how it works, README",
+    "test": "npm test -- --grep @claim:ansi-links",
+    "sandbox": "bundled ANSI and link sample"
+  },
+  {
+    "id": "json-lines",
+    "claim": "Emits one JSON object per stable record with --json.",
+    "where": "README",
+    "test": "npm test -- --grep @claim:json-lines",
+    "sandbox": "fresh CLI process with one heading on standard input"
+  },
+  {
+    "id": "exit-code",
+    "claim": "Returns the wrapped command's exit code.",
+    "where": "README",
+    "test": "npm test -- --grep @claim:exit-code",
+    "sandbox": "wrapped shell command that exits with status 7"
+  },
+  {
+    "id": "unicode-safe",
+    "claim": "Keeps Unicode output intact.",
+    "where": "README",
+    "test": "npm test -- --grep @claim:unicode-safe",
+    "sandbox": "UTF-8 sample piped into a fresh CLI process"
+  },
+  {
+    "id": "timestamped",
+    "claim": "Adds a UTC timestamp to stable lines by default.",
+    "where": "landing metadata, README",
+    "test": "npm test -- --grep @claim:timestamped",
+    "sandbox": "one stable line piped into a fresh CLI process"
+  },
+  {
+    "id": "demo-sandbox",
+    "claim": "The CLI demo writes its transcript only to a new temporary directory.",
+    "where": "demo, README",
+    "test": "npm test -- --grep @claim:demo-sandbox",
+    "sandbox": "fresh demo process and asserted temporary path"
+  },
+  {
+    "id": "mit-free",
+    "claim": "Free under the MIT License.",
+    "where": "landing facts, terms, README",
+    "test": "npm test -- --grep @claim:mit-free",
+    "sandbox": "repository license file"
+  },
+  {
+    "id": "offline-docs",
+    "claim": "The saved docs site works offline after the first visit.",
+    "where": "offline status, privacy",
+    "test": "npm test -- --grep @claim:offline-docs",
+    "sandbox": "fresh browser context taken offline after service worker activation"
+  },
+  {
+    "id": "keyboard-recording",
+    "claim": "The sample recording controls work with a keyboard.",
+    "where": "landing preview",
+    "test": "npm test -- --grep @claim:keyboard-recording",
+    "sandbox": "fresh demo page controlled with focus and Enter"
+  }
+]
